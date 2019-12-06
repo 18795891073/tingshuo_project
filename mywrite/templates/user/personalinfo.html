@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+     <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+     <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/base_1.css">
+     <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+     <link rel="stylesheet" type="text/css" href="/static/css/foot.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/personalinfo.css">
+     <script type="text/javascript" src="../../static/js/jquery-3.3.1.js"></script>
+     <script type="text/javascript" src="../../static/js/ie6.js"></script>
+</head>
+
+<body>
+    <div class="header_con">
+        <div class="header">
+            <div class="welcome fl">欢迎来到听说科技</div>
+            <div class="fr">
+                <div class="login_btn fl">
+                    {% if request.session.is_login %}
+                    欢迎您：<em>{{ request.session.user_name }}</em>
+                    {% ifequal request.session.user_identity 'student' %}
+                    <span>|</span>
+                    <a href="/write/">写作训练</a>
+                    <span>|</span>
+                    <a href="/package/">我的套餐</a>
+                    <span>|</span>
+                    <a href="/logout/">退出</a>
+                    {% else %}
+                    <span>|</span>
+                    <a href="/correct/">作文批改</a>
+                    <span>|</span>
+                    <a href="">我的报酬</a>
+                    <span>|</span>
+                    <a href="/logout/">退出</a>
+                    {% endifequal %}
+                    {% else %}
+                    <a href="/login/">登录</a>
+                    <span>|</span>
+                    <a href="/register/">注册</a>
+                    {% endif %}
+                </div>
+                <div class="user_link fl">
+                    <span>|</span>
+                    <a href="/personalinfo/">用户中心</a>
+
+                    <span>|</span>
+                    <a href="/showcart/">我的购物车</a>
+                    <span>|</span>
+                    <a href="/home/">主页</a>
+                </div>
+            </div>
+        </div>
+     </div>
+    <div class="search_bar clearfix">
+        <a href="" class="logo fl"><img src="/static/images/logo.png"></a>
+        <div class="search_con fl">
+            <input type="text" class="input_text fl" name="" placeholder="搜索商品">
+            <input type="button" class="input_btn fr" name="" value="搜索">
+        </div>
+        <div class="guest_cart fr">
+            <a href="/showcart/" class="cart_name fl">我的购物车</a>
+            <div class="goods_count fl" id="show_count">0</div>
+        </div>
+    </div>
+    <div class="mydang">
+        <div class="head">
+            <a class="logo" href="#">
+                <img src="../../static/images/logo.png" alt="">
+            </a>
+        </div>
+        <div class="my_left">
+            <div class="my_menu">
+                <h3 class="my_menu_title">
+                    <a href="#" id="J_myhomeBtn">我的听说</a>
+                </h3>
+                <dl>
+                    <dt id="class600" name="orders">我的交易</dt>
+                    <dd>
+                        <a href="#">我的订单</a>
+                    </dd>
+                    <dt id="class640" name="personalinformation">个人中心</dt>
+                    <dd>
+                        <a href="/personalinfo/" id="a_personal">个人信息</a>
+                    </dd>
+                    <dd>
+                        <a href="/editpwd/" id="a_eidpwd">修改密码</a>
+                    </dd>
+                    <dd>
+                        <a href="/address/" id="a_adress">收货地址</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="my_main">
+            <div class="my_title">
+                <span class="title">个人信息</span>
+            </div>
+            <div class="address_list">
+                <dl>
+                    <dt>当前信息：</dt>
+                    <dd>用户名：&nbsp;&nbsp; {{ username }}</dd>
+                    <dd>邮&nbsp;&nbsp;箱：&nbsp;&nbsp; {{ email }}</dd>
+                    <dd>手机号：&nbsp;&nbsp; {{  thisuser.phone }}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="footer_nav_box">
+         <div class="footer_nav">
+            <a href="http://www.waiyutong.org/about.html" target="_blank" rel="nofollow">关于听说</a>
+            <span class="sep">|</span>
+            <a href="http://www.waiyutong.org/joinUs.html" target="_blank">加入听说</a>
+            <span class="sep">|</span>
+            <a href="https://www.waiyutong.org/download.html" target="_blank">下载中心</a>
+            <span class="sep">|</span>
+            <a href="http://www.waiyutong.org/questions.html" target="_blank">常见问题</a>
+            <span class="sep">|</span>
+            <a href="http://www.waiyutong.org/qdlm.html" target="_blank">渠道联盟</a>
+        </div>
+        <div class="footer_copyright">
+            <span>Copyright © 2008-2019 南京听说科技有限公司 All Rights Reserved 电信增值业务许可证:苏B2-20160570</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+    </div>
+</body>

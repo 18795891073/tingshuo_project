@@ -1,0 +1,255 @@
+{
+    "data": [
+        {
+            "composition":"When it comes to college life,we can't ignore this fact.That on campus we can see some not good phenomenon widespread which do harm to their health.Typical examples are followed,some of them stay up too late which easily resulting in waking up late even skipping classes.Others consume too much money in an inappropriate way.Besides many are tended to be addicted to computer games and so.<br>It can be noticed that the majority has a good learning of the negative impacts.In the first place,they have difficulty in focusing on lessons about what teachers said in the daytime.In addition,they are likely to neglect their studies and drop out.They gradually become physical or mental ill-being.Even worse,they may embark on the crimes.<br>Therefore,we just can not leave youngsters alone,or they are likely to be influenced by unhealthy tendencies.It's high time that the college students should take effective methods to get rid of unhealthy habits and live a colorful life.It is advisable that college students themselves ought to strengthen the awareness to lead a healthy life.Furthermore,they ought to gather the courage to participate in outdoor activities and go to interesting and meaningful clubs.Last but not lest,students themselves should control their lives in an appropriate way to maintain a balance between playing and studying instead of yielding to the temptation.Only in this way,can they make a change and lead a meaningful and wonderful life on campus.",
+            "issueType": "whitespace",
+            "offset": 29,
+            "length": 3,
+            "sentence": "When it comes to college life,we can't ignore this fact.",
+            "words": ",we",
+            "suggestion": ", we",
+            "shortMessage": "",
+            "Message": "Put a space after the comma"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 56,
+            "length": 4,
+            "sentence": "That on campus we can see some not good phenomenon widespread which do harm to their health.",
+            "words": "That",
+            "suggestion": " That",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 148,
+            "length": 7,
+            "sentence": "Typical examples are followed,some of them stay up too late which easily resulting in waking up late even skipping classes.",
+            "words": "Typical",
+            "suggestion": " Typical",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 177,
+            "length": 5,
+            "sentence": "Typical examples are followed,some of them stay up too late which easily resulting in waking up late even skipping classes.",
+            "words": ",some",
+            "suggestion": ", some",
+            "shortMessage": "",
+            "Message": "Put a space after the comma"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 271,
+            "length": 6,
+            "sentence": "Others consume too much money in an inappropriate way.",
+            "words": "Others",
+            "suggestion": " Others",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "style",
+            "offset": 301,
+            "length": 23,
+            "sentence": "Others consume too much money in an inappropriate way.",
+            "words": "in an inappropriate way",
+            "suggestion": " ",
+            "shortMessage": "Possible wordiness",
+            "Message": "Consider replacing 'in an inappropriate way' with the adverb for 'inappropriate'; e.g.,'in a hasty manner' with 'hastily'."
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 325,
+            "length": 7,
+            "sentence": "Besides many are tended to be addicted to computer games and so.",
+            "words": "Besides",
+            "suggestion": " Besides",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 471,
+            "length": 2,
+            "sentence": "In the first place,they have difficulty in focusing on lessons about what teachers said in the daytime.",
+            "words": "In",
+            "suggestion": " In",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 489,
+            "length": 5,
+            "sentence": "In the first place,they have difficulty in focusing on lessons about what teachers said in the daytime.",
+            "words": ",they",
+            "suggestion": ", they",
+            "shortMessage": "",
+            "Message": "Put a space after the comma"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 574,
+            "length": 2,
+            "sentence": "In addition,they are likely to neglect their studies and drop out.",
+            "words": "In",
+            "suggestion": " In",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 585,
+            "length": 5,
+            "sentence": "In addition,they are likely to neglect their studies and drop out.",
+            "words": ",they",
+            "suggestion": ", they",
+            "shortMessage": "",
+            "Message": "Put a space after the comma"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 640,
+            "length": 4,
+            "sentence": "They gradually become physical or mental ill-being.",
+            "words": "They",
+            "suggestion": " They",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 691,
+            "length": 4,
+            "sentence": "Even worse,they may embark on the crimes.",
+            "words": "Even",
+            "suggestion": " Even",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 701,
+            "length": 5,
+            "sentence": "Even worse,they may embark on the crimes.",
+            "words": ",they",
+            "suggestion": ", they",
+            "shortMessage": "",
+            "Message": "Put a space after the comma"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 743,
+            "length": 3,
+            "sentence": "Therefore,we just can not leave youngsters alone,or they are likely to be influenced by unhealthy tendencies.",
+            "words": ",we",
+            "suggestion": ", we",
+            "shortMessage": "",
+            "Message": "Put a space after the comma"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 782,
+            "length": 3,
+            "sentence": "Therefore,we just can not leave youngsters alone,or they are likely to be influenced by unhealthy tendencies.",
+            "words": ",or",
+            "suggestion": ", or",
+            "shortMessage": "",
+            "Message": "Put a space after the comma"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 843,
+            "length": 2,
+            "sentence": "It's high time that the college students should take effective methods to get rid of unhealthy habits and live a colorful life.",
+            "words": "It",
+            "suggestion": " It",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 970,
+            "length": 2,
+            "sentence": "It is advisable that college students themselves ought to strengthen the awareness to lead a healthy life.",
+            "words": "It",
+            "suggestion": " It",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 1076,
+            "length": 11,
+            "sentence": "Furthermore,they ought to gather the courage to participate in outdoor activities and go to interesting and meaningful clubs.",
+            "words": "Furthermore",
+            "suggestion": " Furthermore",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 1087,
+            "length": 5,
+            "sentence": "Furthermore,they ought to gather the courage to participate in outdoor activities and go to interesting and meaningful clubs.",
+            "words": ",they",
+            "suggestion": ", they",
+            "shortMessage": "",
+            "Message": "Put a space after the comma"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 1201,
+            "length": 4,
+            "sentence": "Last but not lest,students themselves should control their lives in an appropriate way to maintain a balance between playing and studying instead of yielding to the temptation.",
+            "words": "Last",
+            "suggestion": " Last",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 1218,
+            "length": 9,
+            "sentence": "Last but not lest,students themselves should control their lives in an appropriate way to maintain a balance between playing and studying instead of yielding to the temptation.",
+            "words": ",students",
+            "suggestion": ", students",
+            "shortMessage": "",
+            "Message": "Put a space after the comma"
+        },
+        {
+            "issueType": "style",
+            "offset": 1266,
+            "length": 21,
+            "sentence": "Last but not lest,students themselves should control their lives in an appropriate way to maintain a balance between playing and studying instead of yielding to the temptation.",
+            "words": "in an appropriate way",
+            "suggestion": " ",
+            "shortMessage": "Possible wordiness",
+            "Message": "Consider replacing 'in an appropriate way' with the adverb for 'appropriate'; e.g.,'in a hasty manner' with 'hastily'."
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 1377,
+            "length": 4,
+            "sentence": "Only in this way,can they make a change and lead a meaningful and wonderful life on campus.",
+            "words": "Only",
+            "suggestion": " Only",
+            "shortMessage": "",
+            "Message": "Add a space between sentences"
+        },
+        {
+            "issueType": "whitespace",
+            "offset": 1393,
+            "length": 4,
+            "sentence": "Only in this way,can they make a change and lead a meaningful and wonderful life on campus.",
+            "words": ",can",
+            "suggestion": ", can",
+            "shortMessage": "",
+            "Message": "Put a space after the comma"
+        }
+    ]
+}

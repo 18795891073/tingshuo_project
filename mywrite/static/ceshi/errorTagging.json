@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "composition": "As is known to all, quite some college students have unhealthy habits. Typical examples include staying up late, excessive consumption and indulge in the game. So we should pay attention to college student's daily habits.<br>Apparently, these unhealthy habits deeply harm to student's future. On the one hand,staying up all night for college students not only have a negative effect on physical development, but also affect the status of the second day of learning and passion. On the other hand, excessive consumption of college students undoubtedly increased the burden on families which has also form a luxury lifestyle.<br>We can do many things for correcting these unhealthy habits. Firstly, we should try to learn science at the university instead of playing computer because it just wasted our precious time. Secondly, we should be consumed in moderation so as not to waste the hard work of parents. Finally, we should keep early hours does a body good but also improve our studies.<br>As college students we should cultivate healthy habits so that we can make our future more exciting.",
+     
+      "issueType": "whitespace",
+      "offset": 18,
+      "length": 7,
+      "sentence": "As is known to all, quite some college students have unhealthy habits.",
+      "words": ", quite",
+      "suggestion": "aaa",
+      "shortMessage": "",
+      "Message": "aaa"
+    },
+    {
+      "issueType": "grammar",
+      "offset": 223,
+      "length": 11,
+      "sentence": "Apparently, these unhealthy habits deeply harm to student's future.",
+      "words": "Apparently,",
+      "suggestion": ",",
+      "shortMessage": "",
+      "Message": "Put a space after the comma"
+    },
+    {
+      "issueType": "whitespace",
+      "offset": 306,
+      "length": 8,
+      "sentence": "On the one hand,staying up all night for college students not only have a negative effect on physical development, but also affect the status of the second day of learning and passion.",
+      "words": ",staying",
+      "suggestion": ", staying",
+      "shortMessage": "",
+      "Message": "Put a space after the comma"
+    },
+    {
+      "issueType": "grammar",
+      "offset": 597,
+      "length": 4,
+      "sentence": "On the other hand, excessive consumption of college students undoubtedly increased the burden on families which has also form a luxury lifestyle.",
+      "words": "form",
+      "suggestion": "formed",
+      "shortMessage": "Possible agreement error",
+      "Message": "Possible agreement error -- use past participle here: \"formed\"."
+    }
+  ]
+}

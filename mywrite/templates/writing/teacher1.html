@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1,
+            maximum-scale=1">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>教师批改页面</title>
+        <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+        <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+        <!-- <link rel="stylesheet" type="text/css" href="../../static/css/foot.css"> -->
+        <!-- <link rel="stylesheet" type="text/css" href="../../static/css/reset.css"> -->
+        <link rel="stylesheet" href="../../static/layui/css/style.css">
+        <script src="../../static/js/jquery-3.3.1.js"></script>
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+        <style>
+        .btn-agree{
+            position:absolute;
+            left:50%;bottom:-55px;
+            transform: translateX(-100px);
+            display:flex;
+            align-items: center;
+            justify-content:center;
+            width:250px;height:50px;
+            background:#006618;
+            font-size:14px;
+            color:#fff;
+            border:1px solid #fff;
+            cursor: pointer;
+        }
+        .layui-laydate-content th{
+            width:46px;
+        }
+        .layui-laydate-content td,.layui-laydate-content th{
+            width:0;
+        }
+        table.otherword_list thead,tfoot,tbody tr{
+            width:706%;
+        }
+        </style>
+    </head>
+
+    <body>
+        <div class="layui-layout layui-layout-admin" >
+            <div class="header_con">
+                <div class="header">
+                    <div class="welcome fl">欢迎来到听说科技</div>
+                    <div class="fr">
+                        <div class="login_btn fl">
+                            {% if request.session.is_login %}
+                            欢迎您：<span>{{ request.session.user_name }}</span>
+                            {% ifequal request.session.user_identity 'student' %}
+                            <span>|</span>
+                            <a href="/write/">写作训练</a>
+                            <span>|</span>
+                            <a href="/package/">我的套餐</a>
+                            <span>|</span>
+                            <a href="/logout/">退出</a>
+                            {% else %}
+                            <span>|</span>
+                            <a href="/correct/">作文批改</a>
+                            <span>|</span>
+                            <a>我的报酬</a>
+                            <span>|</span>
+                            <a href="/logout/">退出</a>
+                            {% endifequal %}
+                            {% else %}
+                            <a href="/login/">登录</a>
+                            <span>|</span>
+                            <a href="/register/">注册</a>
+                            {% endif %}
+                        </div>
+                        <div class="user_link fl">
+                            <span>|</span>
+                            <a href="/personalinfo/">用户中心</a>
+                            <span>|</span>
+                            <a href="/showcart/">我的购物车</a>
+                            <span>|</span>
+                            <a href="/home/">主页</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-body layui-tab-content site-demo site-demo-body" style = "margin:0 0 0 -200px ;bottom:0">
+                <div class="layui-tab-item layui-show" style="margin:0 220px 0 0">
+                    <!-- 搜索框 -->
+                    <div style="display:flex;align-items: flex-end;justify-content: space-between;">
+                        <div>
+                            <form class="layui-form layui-form-pane" action="">                   
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">提交时间</label>
+                                    <div class="layui-input-block" >
+                                        <input placeholder=" &nbsp请选择日期"  name="time" id='test1' style="margin:0 0 0 10px;width:398px;height:35px;border:1px solid #d2d2d2;">
+                                        <!-- <input  name="time" id='test2' placeholder=" &nbsp请选择日期"  name="time" id='test1' style="margin:0 0 0 10px;width:154px;height:35px;border:1px solid #d2d2d2;"> -->
+                                    </div>
+                                </div>
+                                <!-- 年级 -->
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">年级</label>
+                                    <div class="layui-input-block " style="width:420px;">
+                                        <input type="checkbox" name="grade"  id="c_all" lay-filter="c_all" style="margin-right:10px;" checked
+                                            value=""
+                                            title="不  限">
+                                        <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one" 
+                                            value="七年级"
+                                            title="七年级" >
+                                        <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one"
+                                            value="八年级"
+                                            title="八年级">
+                                        <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one"
+                                            value="九年级"
+                                            title="九年级">
+                                    </div>
+                                </div>  
+                                <!-- 地区 -->
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">地区</label>  
+                                    <div class="layui-input-block" style="overflow: hidden;text-overflow:ellipsis;width:1320px;
+                                    ">
+                                        <input type="checkbox" name="region" id="c_all2" lay-filter="c_all2" checked class="ifRegion"
+                                            value=""
+                                            title="不  限">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="江苏省"
+                                            title="江苏省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="安徽省"
+                                            title="安徽省" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="山东省"
+                                            title="山东省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="北京市"
+                                            title="北京市">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="天津市"
+                                            title="天津市" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="重庆市"
+                                            title="重庆市">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="上海市"
+                                            title="上海市">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="河北省"
+                                            title="河北省" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="山西省"
+                                            title="山西省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="辽宁省"
+                                            title="辽宁省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="吉林省"
+                                            title="吉林省" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="黑龙江"
+                                            title="黑龙江">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="浙江省"
+                                            title="浙江省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="福建省"
+                                            title="福建省" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="江西省"
+                                            title="江西省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="河南省"
+                                            title="河南省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="湖北省"
+                                            title="湖北省" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="湖南省"
+                                            title="湖南省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="广东省"
+                                            title="广东省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="海南省"
+                                            title="海南省" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="四川省"
+                                            title="四川省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="贵州省"
+                                            title="贵州省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2" 
+                                            value="云南省"
+                                            title="云南省" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="陕西省"
+                                            title="陕西省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="甘肃省"
+                                            title="甘肃省" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="青海省"
+                                            title="青海省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="内蒙古"
+                                            title="内蒙古">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="广西省"
+                                            title="广西省" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="西藏省"
+                                            title="西藏省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="宁夏省"
+                                            title="宁夏省" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="新疆省"
+                                            title="新疆省">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="香港市"
+                                            title="香港市">
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="澳门市"
+                                            title="澳门市" >
+                                        <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
+                                            value="台湾省"
+                                            title="台湾省">
+                                    </div>
+                                </div>
+                                <!-- 标题 -->
+                                <div class="layui-form-item" style="width:400px;">
+                                    <label class="layui-form-label">标题</label>
+                                    <div class="layui-input-block" style="width:400px;">
+                                        <input type="text" name="grade" placeholder=" &nbsp请输入标题" id="test3"   style="margin:0 0 0 10px;width:398px;height:35px;border:1px solid #d2d2d2;" >
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="demoTable" style="margin-bottom:10px;height:42px;">
+                                <button class="layui-btn" data-type="reload" style="margin:0 300px -20px 700px;width:120px;height:40px;">搜索</button>
+                                <button class="layui-btn reset-btn" style="margin:0 0px -20px -200px;width:120px;height:40px;">重置</button>
+                            </div>
+                        </div>                                         
+                    </div>
+                    <table class="layui-hide" id="LAY_table_user" lay-filter="demoEvent"></table>
+                    <div id="pageDown"></div>
+                </div>
+              
+                <div class="middle_right layui-main">
+                    <div class="middle_content" style="position:relative;width: 98%;margin-top: 20px;">
+                        <div class="btn-agree">
+                            确认批改
+                        </div><br>
+                        <p class="content">
+                            
+                        </p>
+
+                    </div> 
+                    <div class="layui-layer-btn layui-layer-btn-" >
+                    </div>       
+                </div>
+            </div>
+        </div>
+        <script>
+            $(".btn-agree").click(function(){
+                layer.open({
+                    title: '温馨提示',
+                    content: '确认提交？',
+                    btn:['确认','取消'],
+                    yes:function(){
+                        self.location="http://192.168.1.150:9000/correct0/ ";
+                        // alert('跳转成功')
+                    },
+                    btn2:function(){
+                        self.location="file:///C:/Users/Administrator/Desktop/mywrite/templates/writing/teacher1.html"
+                    }
+                });
+            });
+            // $(".button").click(function(){
+            //     console.log(222)
+                
+            // });
+        </script>
+        <script src="../../static/layui/layui.js"></script>
+        <script src="../../static/layui/js/jquery-3.3.1.js"></script>
+        <script src="../../static/layui/lay/modules/jquery.js"></script>
+        <script src="../../static/layui/js/check_student.js"></script>
+    </body>
+</html> 

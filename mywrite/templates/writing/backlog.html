@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>代办工作事项</title>
+  <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+  <div>
+    <!-- 页面导航栏 -->
+    <div class="header_con">
+      <div class="header">
+        <div class="welcome fl">欢迎来到听说科技</div>
+        <div class="fr">
+          <div class="login_btn fl">
+            {% if request.session.is_login %}
+            欢迎您：
+            <span>{{ request.session.user_name }}</span>
+            {% ifequal request.session.user_identity 'student' %}
+            <span>|</span>
+            <a href="/write/">写作训练</a>
+            <span>|</span>
+            <a href="/package/">我的套餐</a>
+            <span>|</span>
+            <a href="/logout/">退出</a>
+            {% else %}
+            <span>|</span>
+            <a href="/correct/">作文批改</a>
+            <span>|</span>
+            <a>我的报酬</a>
+            <span>|</span>
+            <a href="/logout/">退出</a>
+            {% endifequal %}
+            {% else %}
+            <a href="/login/">登录</a>
+            <span>|</span>
+            <a href="/register/">注册</a>
+            {% endif %}
+          </div>
+          <div class="user_link fl">
+              <span>|</span>
+              <a href="/personalinfo/">用户中心</a>
+              <span>|</span>
+              <a href="/showcart/">我的购物车</a>
+              <span>|</span>
+              <a href="/home/">主页</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 表格内容 -->
+    <div style="display:flex;justify-content: center;">
+      <div style="width:80%;margin-top:70px;">
+        <table id="backlog_demo" lay-filter="test"></table>
+      </div>
+    </div>
+    
+    
+  </div>
+  <script src="../../static/layui/layui.js"></script>
+  <script src="../../static/layui/js/jquery-3.3.1.js"></script>
+  <script>
+    // 使用表格组件
+    layui.use('table',function(){
+      var table = layui.table;
+      // 第一个实例
+      table.render({
+        elem:'#backlog_demo',
+        method: 'post',
+        // height:400,
+        url:'http://192.168.1.150:9000/test/',//数据接口
+        where: {
+          'uid':2
+        },
+        parseData: function (res) {
+            return {
+                "code": 0,
+                "msg": '',
+                "count":res.data.length,
+                "data": res.data
+            }
+        },
+        cols:[[//表头
+          {field:'number',title:'唯一编号',style: 'cursor: pointer;', align: 'center'},
+          {field:'uid',title:'对应用户',style: 'cursor: pointer;', align: 'center'},
+          {field:'time',title:'存储时间',style: 'cursor: pointer;', align: 'center'},
+          {field:'type1',title:'待批改作文',style: 'cursor: pointer;', align: 'center'},
+          {field:'state',title:'事件状态',style: 'cursor: pointer;', align: 'center'}
+        ]],
+      });
+
+      // 监听单元格点击事件
+      table.on('row(test)', function (obj) {
+        console.log(obj)
+        var num = obj.data.number;
+        // 为单击行设置样式
+        $(".layui-table-body tr ").attr({"style":"background:#FFFFFF"});
+        $(obj.tr).attr({"style":"background:#999"});
+        // 页面跳转接口
+        $.ajax({
+          type: 'post',
+          url: 'http://192.168.1.150:9000/test1/',
+          dataType: 'json',
+          data: { 'number': num },
+          // success: function () {
+            
+          // },
+          error: function (jqXHR) {
+            alert('发生错误：' + jqXHR.status);
+          }
+        });
+      })
+    });
+    
+  </script>
+  
+</body>
+</html>

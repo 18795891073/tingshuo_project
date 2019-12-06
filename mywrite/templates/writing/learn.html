@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>
+            测试
+        </title>
+        <!-- <script type="text/javascript" src="jquery-1.7.2.min.js"></script> -->
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    </head>
+    <body>
+        <div style="display:flex;">
+          <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one" 
+            value="七年级"
+            title="七年级" >
+          <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one"
+            value="八年级"
+            title="八年级">
+          <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one"
+            value="九年级"
+            title="九年级">
+          <div id = "showdiv" style="display:none;">
+            <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one" 
+              value="七年级"
+              title="七年级" >
+            <input type="checkbox" name="grade" class=lay-filter="c_one"
+              value="八年级"
+              title="八年级">
+            <input type="checkbox" name="grade" class=lay-filter="c_one"
+              value="九年级"
+              title="九年级">
+          </div>
+          <button onclick="showHideCode()">其他省份</button>
+          <!-- <a href="#" onclick="showHideCode()">查看更多</a> -->
+        </div>
+    </body>
+</html>
+<script type="text/javascript">
+ 
+  function showHideCode(){
+     $("#showdiv").toggle();
+  }
+</script>

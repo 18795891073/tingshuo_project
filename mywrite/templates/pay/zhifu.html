@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/foot.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+    <script src="/static/admin/js/html5.js"></script>
+    <script type="text/javascript" src="../../static/js/ie6.js"></script>
+    <script src="/static/admin/js/jquery.js"></script>
+    <script src="/static/js/index.js"></script>
+
+
+</head>
+<body>
+    <div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到听说科技</div>
+			<div class="fr">
+				<div class="login_btn fl">
+					{% if request.session.is_login %}
+					欢迎您：<em>{{ request.session.user_name }}</em>
+                    {% ifequal request.session.user_identity 'student' %}
+                    <span>|</span>
+                    <a href="/write/">写作训练</a>
+                    <span>|</span>
+                    <a href="">我的套餐</a>
+					<span>|</span>
+					<a href="/logout/">退出</a>
+                    {% else %}
+                    <span>|</span>
+                    <a href="/correct/">作文批改</a>
+                    <span>|</span>
+                    <a href="">我的报酬</a>
+                    <span>|</span>
+                    <a href="/logout/">退出</a>
+                    {% endifequal %}
+					{% else %}
+					<a href="/login/">登录</a>
+					<span>|</span>
+					<a href="/register/">注册</a>
+					{% endif %}
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="/personalinfo/">用户中心</a>
+					<span>|</span>
+					<a href="/showcart/">我的购物车</a>
+					<span>|</span>
+					<a href="/home/">主页</a>
+				</div>
+			</div>
+		</div>
+     </div>
+     <div class="search_bar clearfix">
+		<a href="" class="logo fl"><img src="/static/images/logo.png"></a>
+		<div class="search_con fl">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>
+		<div class="guest_cart fr">
+			<a href="/showcart/" class="cart_name fl">我的购物车</a>
+			<div class="goods_count fl" id="show_count">0</div>
+		</div>
+	</div>
+
+{% load staticfiles %}
+
+{% csrf_token %}
+<style>
+</style>
+
+<!-- order_id:订单id，status：支付状态 -->
+<a href="#" order_id={{ order.order_id }} status="{{ order.order_status }}" class="oper_btn">去付款</a></td>
+
+<script src="/static/ceshi1/js/jquery-3.3.1.js"></script>
+    <script>
+        $('.oper_btn').click(function () {
+            console.log('1')
+           //获取status订单状态
+           status=$(this).attr('status');
+           if(status ==1){
+               //进行支付
+               //获取订单id
+               order_id = $(this).attr('order_id');
+               csrf = $('input[name="csrfmiddlewaretoken"]').val();
+               //组织参数
+               params = {"order_id":order_id,"csrfmiddlewaretoken":csrf};
+               //发起ajax post请求，访问/order/pay，传递参数：order_id
+               $.post('/order/pay',params,function (data) {
+                   if(data.res == 3){
+                       //引导用户到支付页面
+                       window.open(data.pay_url)
+                   }else{
+                       alart(data.errmsg)
+                   }
+               })
+           }else{
+               //其他情况
+           }
+        });
+    </script>
+    <script>
+        /*$(".oper_btn").each(function(){
+            //获取支付状态
+            status = $(this).attr('status');
+            if(status == 1){
+                $(this).text("去支付")
+            }else if(status == 4){
+                $(this).text("去评价")
+            }else if(status ==5){
+                $(this).text("已完成")
+            }
+        });
+
+        $('.oper_btn').click(function () {
+           //获取status订单状态
+           status=$(this).attr('status');
+           order_id = $(this).attr('order_id');
+           if(status ==1){
+               //进行支付
+               //获取订单id
+               csrf = $('input[name="csrfmiddlewaretoken"]').val();
+               //组织参数
+               params = {"order_id":order_id,"csrfmiddlewaretoken":csrf};
+               //发起ajax post请求，访问/order/pay，传递参数：order_id
+               $.post('/order/pay',params,function (data) {
+                   if(data.res == 3){
+                       //引导用户到支付页面
+                       window.open(data.pay_url);
+                       */
+                       //浏览器访问/order/check，获取支付交易的结果
+                       $.post('/order/check',params,function (data) {
+                           if(data.res == 3){
+                               //刷新页面
+                               location.reload()
+                          /*
+                           }else{
+                               alert(data.errmsg)
+                           }
+                       })
+                   }else{
+                       alart(data.errmsg)
+                   }
+               })
+           }else{
+               //其他情况
+               //跳转到评价页面
+               location.href="/order/comment/"+order_id
+           }
+        });
+        */
+    </script>
+
+<div class="footer_nav_box">
+        <div class="footer_nav">
+            <a href="http://www.waiyutong.org/about.html" target="_blank" rel="nofollow">关于听说</a>
+            <span class="sep">|</span>
+            <a href="http://www.waiyutong.org/joinUs.html" target="_blank">加入听说</a>
+            <span class="sep">|</span>
+            <a href="https://www.waiyutong.org/download.html" target="_blank">下载中心</a>
+            <span class="sep">|</span>
+            <a href="http://www.waiyutong.org/questions.html" target="_blank">常见问题</a>
+            <span class="sep">|</span>
+            <a href="http://www.waiyutong.org/qdlm.html" target="_blank">渠道联盟</a>
+        </div>
+        <div class="footer_copyright">
+            <span>Copyright © 2008-2019 南京听说科技有限公司 All Rights Reserved 电信增值业务许可证:苏B2-20160570</span>
+        </div>
+
+        <!-- 有三个icon的时候加footer_icon2 -->
+{#        <div class="footer_icon footer_icon2" style="padding-left: 55px;">#}
+{#            <div class="validator"><a href="#" target="_blank" class="footer_img"><img src="../../static/images/validate.gif"></a></div>#}
+{#            <div class="validator"><a href="#" target="_blank" class="footer_img"><img src="../../static/images/validate.gif"></a></div>#}
+{#            <div class="validator"><a id="_pingansec_bottomimagesmall_brand" href="#"  target="_blank"><img src="../../static/images/validate.gif"></a></div>#}
+{#        </div>#}
+        <div class="clear"></div>
+    </div>
+   <script type="text/javascript"   src="{% static 'js/common.js' %}"></script>
+</body>
+</html>
