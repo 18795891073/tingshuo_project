@@ -20,18 +20,29 @@
               <div style="margin:10px 0 15px 0;font-size:18px;">密码登录</div>
               <div>
                 <span>用户名：</span>
-                <input type="text" placeholder="请输入用户名">
+                <div style="margin-bottom:15px;display:inline-block;width:190px;height:32px;border:1px solid #999; ">
+                  <input type="text" placeholder="请输入用户名" autofocus="autofocus">
+                </div>             
               </div>
               <div>
                 <span>密码：</span>
-                <input style="margin-left:15px;" type="password" placeholder="请输入密码">
+                <div  style="margin-left:16px;display:inline-block;width:190px;height:32px;border:1px solid #999; ">
+                  <input type="password" placeholder="请输入密码">
+                </div>
               </div>
+              <!-- 验证码图片生成 -->
               <div >
-                <img src="" alt="">
+                <div class="get_code" @click="drawCode()" id="code">
+                  <canvas width="100" height="40" id="verifyCanvas"></canvas>
+                  <img id="code_img">
+                </div>
               </div>
+              <!-- 验证码输入框 -->
               <div>
-                <span>验证码：</span>
-                <input type="text" placeholder="请输入验证码">
+                <span>验证码</span>
+                <div style="margin-left:16px;display:inline-block;width:190px;height:32px;border:1px solid #999;">
+                  <input type="text" placeholder="请输入验证码">
+                </div> 
               </div>
               <button>登 &nbsp; 录</button>
             </div>
@@ -61,12 +72,22 @@
 export default {
   data(){
     return{
-
+      nums:[
+        "1","2","3","4","5","6","7","8","9","0",
+        "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x",
+      "y","z",
+        "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X",
+      "Y","Z"
+      ],
     }
   },
   created(){},
   mounted(){},
-  methods:{},
+  methods:{
+    drawCode(str){
+      
+    },
+  },
 }
 </script>
 <style  scoped>
@@ -82,12 +103,13 @@ export default {
     border:1px solid #999;
     border-width:1.5px;
   }
+
   input{
-    /* width:100%;height:100%; */
+    border:0;
     outline: none;
-    margin-bottom: 15px;
+    margin-left: 10px;
     width:180px;height:30px;
-    border:1px solid #999;
+    /* border:1px solid #999; */
   }
   button{
     margin-top:15px;
@@ -114,5 +136,9 @@ export default {
     margin-right:10px;
     font-size:13px;
     color:#777;
+  }
+  ul li:hover{
+    color:#999;
+    cursor: pointer;
   }
 </style>

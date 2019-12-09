@@ -1,13 +1,16 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
+    <!-- <img src="./assets/images/logo.png"> -->
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  // mounted(){
+  //   console.log("用jquery获取一下vue这张图片："+ $("#app>img").attr('src'));
+  // }
 }
 </script>
 

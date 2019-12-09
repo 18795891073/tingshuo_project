@@ -3,14 +3,14 @@
 {% load static %}
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
-     <link rel="stylesheet" type="text/css" href="/static/css/base.css">
-     <link rel="stylesheet" type="text/css" href="/static/css/foot.css">
-     <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+    <link rel="shortcut icon" href="../../static/images/favicon.ico" type="image/x-icon">
+     <link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+     <link rel="stylesheet" type="text/css" href="../../static/css/foot.css">
+     <link rel="stylesheet" type="text/css" href="../../static/css/login.css">
 {#      <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.slim.js"></script>#}
-    <script src="{% static 'admin/js/jquery.js' %}"></script>
-     <script src="{% static 'admin/js/html5.js' %}"></script>
-     <script src="{% static 'js/ie6.js' %}"></script>
+    <script src="{% ../../static 'admin/js/jquery.js' %}"></script>
+     <script src="{% ../../static 'admin/js/html5.js' %}"></script>
+     <script src="{% ../../static 'js/ie6.js' %}"></script>
 
     <script type="text/javascript" src="../../static/js/login.js"></script>
     <title>登陆 -- 听说科技</title>
@@ -55,7 +55,7 @@
                                 {{ login_form.captcha }}
                             </div>
                             <p class="btn">
-                                <button id="submintLoginBtn" type='submit'>登陆</button>
+                                <button id="submintLoginBtn" type='submit' style="margin-top:5px;">登陆</button>
                             </p>
                         </div>
                     </form>
@@ -63,69 +63,71 @@
             </div>
         </div>
     </div>
-               <style>
-                  .captcha{
-                  width:91px;
-                  height:40px;
-                  }
-                  .form-control{
-            border: 1px solid #e6e6e6;
-            font-family: 'Microsoft YaHei';
-            height: 12px;
-            float: left;
-            width: 270px;
-            margin-right: 5px;
-            padding: 4px 5px;
-            line-height: 12px;
-            outline: 0 none;
-            border-radius: 1px;
-            color: #333;
-        }
-        #id_captcha_1{
-            border: 1px solid #e6e6e6;
-            font-family: 'Microsoft YaHei';
-            height: 12px;
-            float: left;
-            width: 230px;
-            margin-right: 5px;
-            padding: 4px 5px;
-            line-height: 12px;
-            outline: 0 none;
-            border-radius: 1px;
-            color: #333;
-        }
-              </style>
-    <script src="/static/js/jquery-3.3.1.js"></script>
-    <script>
-     $(function(){
-     $('.captcha').css({
-        'cursor': 'pointer'
-     })
+    <style>
+    .captcha{
+        width:91px;
+        height:40px;
+    }
+    .form-control{
+        border: 1px solid #e6e6e6;
+        font-family: 'Microsoft YaHei';
+        height: 12px;
+        float: left;
+        width: 270px;
+        margin-right: 5px;
+        padding: 4px 5px;
+        line-height: 12px;
+        outline: 0 none;
+        border-radius: 1px;
+        color: #333;
+    }
+#id_captcha_1{
+    border: 1px solid #e6e6e6;
+    font-family: 'Microsoft YaHei';
+    height: 12px;
+    float: left;
+    width: 230px;
+    margin-right: 5px;
+    padding: 4px 5px;
+    line-height: 12px;
+    outline: 0 none;
+    border-radius: 1px;
+    color: #333;
+}
+</style>
+<script src="../../static/js/jquery-3.3.1.js"></script>
+<script>
+    debugger
+    $(function(){
+    $('.captcha').css({
+    'cursor': 'pointer'
+    })
 
-     $('.captcha').click(function(){
-        console.log('click');
-         $.getJSON("/captcha/refresh/",
-                  function(result){
-             $('.captcha').attr('src', result['image_url']);
-             $('#id_captcha_0').val(result['key'])
-          });});
-
-     $('#id_captcha_1').blur(function(){
-
-     json_data={
-            'response':$('#id_captcha_1').val(),
-            'hashkey':$('#id_captcha_0').val()
-        }
-        $.getJSON('/ajax_val', json_data, function(data){ //ajax发送            $('#captcha_status').remove()
-            if(data['status']){
-                $('#id_captcha_1').after('<span id="captcha_status" >*验证码正确</span>')
-            }else{
-                 $('#id_captcha_1').after('<span id="captcha_status" >*验证码错误</span>')
-            }
+    $('.captcha>img').click(function(){
+    console.log('click');
+        $.getJSON("/captcha/refresh/",
+                function(result){
+            $('.captcha').attr('src', result['image_url']);
+            $('#id_captcha_0').val(result['key'])
         });
-     });
-     })
-    </script>
+    });
+
+    $('#id_captcha_1').blur(function(){
+
+    json_data={
+        'response':$('#id_captcha_1').val(),
+        'hashkey':$('#id_captcha_0').val()
+    }
+    $.getJSON('/ajax_val', json_data, function(data){ //ajax发送            $('#captcha_status').remove()
+        if(data['status']){
+            $('#id_captcha_1').after('<span id="captcha_status" >*验证码正确</span>')
+        }else{
+                $('#id_captcha_1').after('<span id="captcha_status" >*验证码错误</span>')
+        }
+    });
+    });
+    })
+</script>
     <div class="footer_nav_box">
         <div class="footer_nav">
             <a href="http://www.waiyutong.org/about.html" target="_blank" rel="nofollow">关于听说</a>
@@ -141,8 +143,6 @@
         <div class="footer_copyright">
             <span>Copyright © 2008-2019 南京听说科技有限公司 All Rights Reserved 电信增值业务许可证:苏B2-20160570</span>
         </div>
-
-
         <div class="clear"></div>
     </div>
 </body>

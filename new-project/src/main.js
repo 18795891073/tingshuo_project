@@ -5,6 +5,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
 import moment from 'moment'
+import $ from 'jquery'
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false

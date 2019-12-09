@@ -7,6 +7,11 @@ var biii="";
 
 // form表单组件
 layui.use('form',function(){
+    if(window.devicePixelRatio>1||window.devicePixelRatio<1){
+        alert('缩放比例设置成默认（100%），体验更好哦！')
+        //console.log(111,window.devicePixelRatio)  //正常1 正常100%状态
+    }
+
     var form = layui.form;
     // 全选---年级
     form.on('checkbox(c_all)',function(data){
@@ -120,13 +125,15 @@ layui.use('table', function () {
         },
         cols: [[
 
-            { field: 'time', title: '提交时间',  style: 'cursor: pointer;', align: 'center',unresize:true,templet:function(d){
-                return util.toDateString(d.taskDate); //时间戳格式转换
+            { field: 'time', title: '提交时间', width:"15%",  style: 'cursor: pointer;', align: 'center',templet:function(d){
+                // console.log(111,d)
+                // console.log(222,d.time)
+                return util.toDateString(d.time); //时间戳格式转换
             } },
-            { field: 'grade', title: '年级',  style: 'cursor: pointer;', align: 'center' ,unresize:true},
-            { field: 'region', title: '地区', style: 'cursor: pointer;', align: 'center',unresize:true },
-            { field: 'title', title: '标题',  style: 'cursor: pointer;', align: 'center',unresize:true },
-            { field: 'original', title: '作文内容', width: '30%', style: 'cursor: pointer;', align: 'center',unresize:true }
+            { field: 'grade', title: '年级', width:"15%",  style: 'cursor: pointer;', align: 'center' },
+            { field: 'region', title: '地区', width:"15%", style: 'cursor: pointer;', align: 'center'},
+            { field: 'title', title: '标题', width:"15%",  style: 'cursor: pointer;', align: 'center'},
+            { field: 'original', title: '作文内容', width:"40%",style: 'cursor: pointer;', align: 'center',}
             
 
         ]],

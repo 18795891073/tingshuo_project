@@ -65,8 +65,14 @@
     margin-top: 5px;
 }
 .infro .username{
-    margin-top: 20px;
-
+    margin: 20px 0 10px 0;
+}
+.infro .username{
+    margin-bottom:10px;
+}
+.captcha input:nth-child(3){
+    margin-bottom:10px;
+    height:20px;
 }
 .infro .username,.infro .password {
     height: 36px;
