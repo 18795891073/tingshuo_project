@@ -16,7 +16,7 @@
         <div>|</div>
         <el-menu-item index="6">我的购物车</el-menu-item>
         <div>|</div>
-        <el-menu-item index="7">主页</el-menu-item>
+        <el-menu-item index="7"><a href="http://localhost:8080/#/index">主页</a></el-menu-item>
       </el-menu>
       <!-- 导航栏下面的内容 -->
       <div style="display:flex;">

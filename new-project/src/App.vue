@@ -8,9 +8,6 @@
 <script>
 export default {
   name: 'App',
-  // mounted(){
-  //   console.log("用jquery获取一下vue这张图片："+ $("#app>img").attr('src'));
-  // }
 }
 </script>
 

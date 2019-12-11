@@ -118,7 +118,8 @@
         'response':$('#id_captcha_1').val(),
         'hashkey':$('#id_captcha_0').val()
     }
-    $.getJSON('/ajax_val', json_data, function(data){ //ajax发送            $('#captcha_status').remove()
+    $.getJSON('/ajax_val', json_data, function(data){ //ajax发送           
+        $('#captcha_status').remove()
         if(data['status']){
             $('#id_captcha_1').after('<span id="captcha_status" >*验证码正确</span>')
         }else{

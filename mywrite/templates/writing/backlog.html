@@ -67,6 +67,7 @@
     // 使用表格组件
     layui.use('table',function(){
       var table = layui.table;
+      var util = layui.util;
       // 第一个实例
       table.render({
         elem:'#backlog_demo',
@@ -85,11 +86,15 @@
             }
         },
         cols:[[//表头
-          {field:'number',title:'唯一编号',style: 'cursor: pointer;', align: 'center'},
-          {field:'uid',title:'对应用户',style: 'cursor: pointer;', align: 'center'},
-          {field:'time',title:'存储时间',style: 'cursor: pointer;', align: 'center'},
-          {field:'type1',title:'待批改作文',style: 'cursor: pointer;', align: 'center'},
-          {field:'state',title:'事件状态',style: 'cursor: pointer;', align: 'center'}
+          {field:'id',title:'事件编号',style: 'cursor: pointer;', align: 'center',width:'12%'},
+          {field:'time',title:'开始时间',style: 'cursor: pointer;', align: 'center',width:'22%',
+        templet:function(d){
+          console.log(d)
+          return util.toDateString(d.time);
+        }},
+          {field:'number',title:'文章编号',style: 'cursor: pointer;', align: 'center',width:'22%'},
+          {field:'state',title:'文章标题',style: 'cursor: pointer;', align: 'center',width:'22%'},
+          {field:'type1',title:'待办事件',style: 'cursor: pointer;', align: 'center',width:'22%'}
         ]],
       });
 

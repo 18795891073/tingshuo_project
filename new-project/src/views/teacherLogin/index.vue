@@ -6,7 +6,7 @@
         <div style="margin-right:10px;font-size:13px;color:#999;">欢迎来到听说科技</div>
         <el-menu-item index="1">欢迎您：222</el-menu-item>
         <div>|</div>
-        <el-menu-item index="2">作文批改</el-menu-item>
+        <el-menu-item index="2"><a href="http://localhost:8080/#/check">作文批改</a></el-menu-item>
         <div>|</div>
         <el-menu-item index="3">我的报酬</el-menu-item>
         <div>|</div>
@@ -16,7 +16,7 @@
         <div>|</div>
         <el-menu-item index="6">我的购物车</el-menu-item>
         <div>|</div>
-        <el-menu-item index="7">主页</el-menu-item>
+        <el-menu-item index="7"><a href="http://localhost:8080/#/index">主页</a></el-menu-item>
       </el-menu>
       <!-- 正文内容 -->
       <div style="width:60%;margin-left:20%;">

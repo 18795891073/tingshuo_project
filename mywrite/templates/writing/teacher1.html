@@ -18,16 +18,19 @@
         <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
         <style>
         .btn-agree{
-            margin:30px 0 15px 1130px;
-            display:flex;
+            margin:30px 0 15px 1330px;
+            /* display:flex;
             align-items: center;
-            justify-content:center;
+            justify-content:center; */
+            text-align: center;
+            line-height: 50px;
             width:230px;height:50px;
             background:#0a0;
             font-size:18px;
             color:#fff;
             border:1px solid #fff;
             cursor: pointer;
+            /* display:none; */
         }
         .btn-agree:hover{
             background:#f00;
@@ -96,7 +99,7 @@
                                     <div class="layui-input-block " style="width:420px;">
                                         <input type="checkbox" name="grade"  id="c_all" lay-filter="c_all" style="margin-right:10px;" checked
                                             value=""
-                                            title="不  限">
+                                            title="不&nbsp;&nbsp;&nbsp;限">
                                         <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one" 
                                             value="七年级"
                                             title="七年级" >
@@ -115,7 +118,7 @@
                                     ">
                                         <input type="checkbox" name="region" id="c_all2" lay-filter="c_all2" checked class="ifRegion"
                                             value=""
-                                            title="不  限">
+                                            title="不&nbsp;&nbsp;&nbsp;限">
                                         <input type="checkbox" name="region" class="checkboxNum2" lay-filter="c_one2"
                                             value="江苏省"
                                             title="江苏省">
@@ -225,6 +228,7 @@
                                     <label class="layui-form-label">标题</label>
                                     <div class="layui-input-block" style="width:400px;">
                                         <input type="text" name="grade" placeholder=" &nbsp请输入标题" id="test3"   style="margin:0 0 0 10px;width:398px;height:35px;border:1px solid #d2d2d2;" >
+                                        <span style="display:inline-block;margin:5px 0 5px 12px;color:#f00;font-size:12px;">提示：多个标题之间用逗号隔开</span>
                                     </div>
                                 </div>
                             </form>
@@ -239,15 +243,13 @@
                 </div>
               
                 <div class="middle_right layui-main">
-                    <div class="middle_content" style="position:relative;width: 87%;margin-top: 20px;margin-left:-1%;">
-                        
+                    <div class="middle_content" style="position:relative;width: 90%;margin-top: 20px;margin-left:-1%;border:1px solid #999;display:none;">
+                        <div class="btn-agree">
+                            确认批改
+                        </div> 
                         <p class="content" style="line-height: 40px;
-                        font-size: 15px;padding:10px;">
-                           <div class="btn-agree">
-                                确认批改
-                            </div> 
+                        font-size: 15px;padding:20px;">  
                         </p>
-1
                     </div> 
                     <div class="layui-layer-btn layui-layer-btn-" >
                     </div>       

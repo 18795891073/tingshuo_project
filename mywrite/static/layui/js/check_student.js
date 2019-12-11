@@ -189,7 +189,11 @@ layui.use('table', function () {
             // title参数
             var title = [];
             if ($("#test3").val()!=""){
-                title.push($("#test3").val());
+                var g = $("#test3").val()
+                // console.log(g)
+                // console.log( 54,$("#test3").val().split(',') )
+                title = g.split(',')   //把字符串通过逗号分隔为数组
+                // title.push($("#test3").val());
             };
             //执行重载
             table.reload('tableReload', {
@@ -234,7 +238,8 @@ layui.use('table', function () {
         $(".layui-table-body tr ").attr({"style":"background:#FFFFFF"});
         $(obj.tr).attr({"style":"background:#999"});
         // console.log(1212,obj.tr.selector)
-
+        //点击行显示批改按钮
+        $('.middle_content').css('display','block') ;   
 
         $('#hello').css('display', 'inline');
         $("#hello").click(function() {    

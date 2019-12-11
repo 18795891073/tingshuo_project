@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Check from '../views/teacherLogin/checkStudent.vue'
 import Login from '../views/teacherLogin/login.vue'
-import Head from '../views/teacherLogin/header.vue'
 import Index from '../views/teacherLogin/index.vue'
+import User from '../views/teacherLogin/user.vue'
 
 Vue.use(Router)
 
@@ -33,9 +33,9 @@ export default new Router({
     },
     // 练习页面
     {
-      path:'/head',
-      name:'head',
-      component:Head
+      path:'/user',
+      name:'user',
+      component:User
     }
   ]
 })

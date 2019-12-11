@@ -1,4 +1,3 @@
-// var webpack = require('webpack')
 
 'use strict'
 const path = require('path')
@@ -32,12 +31,15 @@ module.exports = {
       '@': resolve('src'),
     }
   },
-  // plygins:[
-  //   new webpack.ProvidePlugin({
-  //     jQuery:"jquery",
-  //     $:"jquery"
-  //   })
-  // ],
+  //添加代码
+  plugins:[
+    new webpack.ProvidePlugin({
+      jQuery:"jquery",
+      $:"jquery",
+      jQuery:"jquery",
+      "window.jQuery":"jquery"
+    })
+  ],
   module: {
     rules: [
       {
