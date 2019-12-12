@@ -95,6 +95,7 @@ layui.use('laydate', function(){
   laydate.render({
     elem: '#test1' ,
     range:'至',
+    
   });
 });
 //搜索查询

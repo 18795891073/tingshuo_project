@@ -22,16 +22,19 @@ function addSelect(param) {
 
     document.onmouseup = function (e) {
         let resultEle = document.querySelector(el);
+        // 返回文档中匹配指定 CSS 选择器的一个元素,只返回匹配的第一个元素，如果没有匹配项，返回null
         let selected = window.getSelection();
-
+        // getSelection()方法可以返回一个Selection对象，用于表示用户选择的文本范围或插入符的当前位置
         if (selected.type === 'None') {
             return;
         }
 
-        let selectedStr = selected.toString();
-        if (selected && selected.rangeCount > 0) {
-            let r = selected.getRangeAt(0);
+        let selectedStr = selected.toString();  //toString()--返回selection的纯文本，也就是返回选中区域的文本内容(把一个逻辑值转为字符串)
+        if (selected && selected.rangeCount > 0) {  //rangeCount：selection中range的数目，一般一个，ctrl键配合多个
+            let r = selected.getRangeAt(0);   //getRangeAt() --从当前selection中获取某一个range对象
             if (r.startContainer === r.endContainer && isParent(r.startContainer, resultEle) && selectedStr) {
+                //startContainer:此Range对象的开始点位于哪个节点
+                //endContainer:此Range对象的结束点位于哪个节点
                 let children = resultEle.childNodes;
                 let c;
 
