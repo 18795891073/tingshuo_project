@@ -1,4 +1,23 @@
 // 判断parentEle是否是cur元素的父元素
+if(window.devicePixelRatio>1||window.devicePixelRatio<1){
+        alert('缩放比例设置成默认（100%），体验更好哦！')
+        //console.log(111,window.devicePixelRatio)  //正常1 正常100%状态
+    };
+
+setInterval(function(){
+    // 获取后端传过来的时间
+    var dateH = dataNew.start_correct_time;
+    // 获取当前时间
+    var now=new Date();
+    //获得两者的时间差
+    var allTime = (Date.parse(dateH) - Date.parse(now))
+    var day = Math.floor(allTime/(24*60*60*1000))
+    var hour = Math.floor((allTime - day*24*60*60*1000)/(60*60*1000));
+    var minute = Math.floor((allTime - day*24*60*60*1000 - hour*60*60*1000)/(60*1000));
+    var second = Math.floor((allTime - day*24*60*60*1000 - hour*60*60*1000 - minute*60*1000)/1000);
+    var textp = document.getElementById("textp");
+    textp.innerHTML = "批改时间剩余：" + day + '天' + hour + '小时' + minute + '分' + second + '秒'
+  },100)
 function isParent(cur, parentEle) {
     if (cur && cur.tagName !== 'BODY') {
         let pEle = cur.parentElement;
@@ -22,19 +41,16 @@ function addSelect(param) {
 
     document.onmouseup = function (e) {
         let resultEle = document.querySelector(el);
-        // 返回文档中匹配指定 CSS 选择器的一个元素,只返回匹配的第一个元素，如果没有匹配项，返回null
         let selected = window.getSelection();
-        // getSelection()方法可以返回一个Selection对象，用于表示用户选择的文本范围或插入符的当前位置
+
         if (selected.type === 'None') {
             return;
         }
 
-        let selectedStr = selected.toString();  //toString()--返回selection的纯文本，也就是返回选中区域的文本内容(把一个逻辑值转为字符串)
-        if (selected && selected.rangeCount > 0) {  //rangeCount：selection中range的数目，一般一个，ctrl键配合多个
-            let r = selected.getRangeAt(0);   //getRangeAt() --从当前selection中获取某一个range对象
+        let selectedStr = selected.toString();
+        if (selected && selected.rangeCount > 0) {
+            let r = selected.getRangeAt(0);
             if (r.startContainer === r.endContainer && isParent(r.startContainer, resultEle) && selectedStr) {
-                //startContainer:此Range对象的开始点位于哪个节点
-                //endContainer:此Range对象的结束点位于哪个节点
                 let children = resultEle.childNodes;
                 let c;
 
@@ -99,15 +115,15 @@ var a = addSelect({
     el: '.content',
     onSelect: function (e, cur) {
         let pop = document.querySelector('.popup');
-
+      
         layer.open({
             type: 1,
             zIndex: '9',
             closeBtn: 1,
             title: '批改框',
-            area: ['400px', '400px'], 
+            area: ['400px', '400px'], //宽高
             content: pop.innerHTML,
-            shadeClose: true,
+            shadeClose: true,//点击遮罩关闭
             btn: ['确认'],
             yes: function (index, layero) {
                 popup_confirm(index)
@@ -196,6 +212,7 @@ function popup_confirm(index) {
     }
 
     //教师批改的新对象
+    if(flag){
     var newdata = {
         sentence: '',
         questions: [{
@@ -212,6 +229,7 @@ function popup_confirm(index) {
         }]
 
     };
+    
 
     error_count++;
     dataNew.errors.push(newdata);
@@ -222,7 +240,7 @@ function popup_confirm(index) {
     $('.layui_details').children().remove();
     errorShow();//显示错误列表
     console.log(dataNew);
-
+ };
 };
 
 
@@ -254,161 +272,132 @@ layui.use('form', function () {
     });
 });
 
-
-
-//改变文字下划线样式
-$(document).on('click', '#underline', function () {
-
-    var dom = a.getSelect();
-    if (dom) {
-        dom.style.textDecoration = 'underline';
-    }
-});
-
-$(document).on('click', '#through', function () {
-    var dom = a.getSelect();
-    if (dom) {
-        dom.style.textDecoration = 'line-through';
-    }
-});
-$(document).on('click', '#none', function () {
-
-    var dom = a.getSelect();
-    if (dom) {
-        dom.style.textDecoration = 'none';
-    }
-});
-
-//复制文字
-$(document).on('click', '.btn_copy', function () {
-    var dom = a.getSelect();
-    if (dom) {
-        $('.comment').val($('.comment').eq(1).val() + dom.innerHTML);
-    }
-});
-//撤销所有样式
-$(document).on('click', '.btn_delete', function () {
-    $('.comment').val('');
-    a.clear();
-});
-
-
-
 //创建新的数组，复制后台传递的错误信息
 var dataNew = [];
 var error_count = 0;
 
 //侧边导航栏显示错误类型个数
 function errorCategory(arr) {
-
-    var whitespaceN = 0;
-    var grammarN = 0;
-    var styleN = 0;
-    var misspellingN = 0;
-    var typographicalN = 0;
-    var duplicationN = 0;
-    var localeN = 0;
-    var inconsistencyN = 0;
-    var uncategorizedN = 0;
-    var errorsN = 0;
-
-    for (let i = arr.length - 1; i >= 0; i--) {
-        for (let j = arr[i].questions.length - 1; j >= 0; j--) {
-            if (arr[i].questions[j].issueType == 'whitespace') {
-                whitespaceN++;
-            }
-
-            if (arr[i].questions[j].issueType == 'grammar') {
-                grammarN++;
-            }
-            if (arr[i].questions[j].issueType == 'style') {
-                styleN++;
-            }
-            if (arr[i].questions[j].issueType == 'misspelling') {
-                misspellingN++;
-            }
-            if (arr[i].questions[j].issueType == 'typographical') {
-                typographicalN++;
-            }
-            if (arr[i].questions[j].issueType == 'duplication') {
-                duplicationN++;
-            }
-            if (arr[i].questions[j].issueType == 'locale-violation') {
-                localeN++;
-            }
-            if (arr[i].questions[j].issueType == 'inconsistency') {
-                inconsistencyN++;
-            }
-            if (arr[i].questions[j].issueType == 'uncategorized') {
-                uncategorizedN++;
+    var errorN={
+        whitespaceN:{
+            name:'whitespace',
+            count: 0
+        },
+        grammarN :{
+            name:'grammar',
+            count: 0
+        },
+        styleN : {
+            name:'style',
+            count: 0
+        },
+        misspellingN : {
+            name:'misspelling',
+            count: 0
+        },
+        typographicalN :{
+            name:'typographical',
+            count: 0
+        },
+        duplicationN : {
+            name:'duplication',
+            count: 0
+        },
+        localeN : {
+            name:'locale-violation',
+            count: 0
+        },
+        inconsistencyN : {
+            name:'inconsistency',
+            count: 0
+        },
+        uncategorizedN : {
+            name:'uncategorized',
+            count: 0
+        },
+        errorsN : {
+            name:'errorTotal',
+            count: 0
+        },
+        
+    }
+    
+        for (let i = arr.length - 1; i >= 0; i--) {
+            for (let j = arr[i].questions.length - 1; j >= 0; j--) {
+                switch(arr[i].questions[j].issueType){
+                    case 'whitespace':
+                        errorN.whitespaceN.count++;
+                      break;
+                    case 'grammar':
+                        errorN.grammarN.count++;
+                    break;
+                    case 'style':
+                        errorN.styleN.count++;
+                    break;
+                    case 'misspelling':
+                        errorN.misspellingN.count++;
+                    break;
+                    case 'typographical':
+                        errorN.typographicalN.count++;
+                    break;
+    
+                    case 'duplication':
+                        errorN.duplicationN.count++;
+                    break;
+                    case 'locale-violation':
+                        errorN.localeN.count++;
+                    break;
+                    case 'inconsistency':
+                        errorN.inconsistencyN.count++;
+                    break;
+                    case 'uncategorized':
+                        errorN.uncategorizedN.count++;
+                    break;
+                     
+                  }
+           
             }
         }
-    }
-    errorsN = whitespaceN + grammarN + styleN + misspellingN + typographicalN + duplicationN + localeN + inconsistencyN + uncategorizedN;
-
-    $('.system_solving dd:first-child a span').html(' (' + errorsN + ')');
-    $('.system_solving dd:nth-child(2) a span').html(' (' + whitespaceN + ')');
-    $('.system_solving dd:nth-child(3) a span').html(' (' + grammarN + ')');
-    $('.system_solving dd:nth-child(4) a span').html(' (' + styleN + ')');
-    $('.system_solving dd:nth-child(5) a span').html(' (' + misspellingN + ')');
-    $('.system_solving dd:nth-child(6) a span').html(' (' + typographicalN + ')');
-    $('.system_solving dd:nth-child(7) a span').html(' (' + duplicationN + ')');
-    $('.system_solving dd:nth-child(8) a span').html(' (' + localeN + ')');
-    $('.system_solving dd:nth-child(9) a span').html(' (' + inconsistencyN + ')');
-    $('.system_solving dd:nth-child(10) a span').html(' (' + uncategorizedN + ')');
-    if (whitespaceN == 0) {
-        $('.system_solving dd:nth-child(2) a').css('color', '#8c8985')
-    } else {
-        $('.system_solving dd:nth-child(2) a').css('color', '#ffffffb3')
-    }
-    if (grammarN == 0) {
-        $('.system_solving dd:nth-child(3) a').css('color', '#8c8985')
-    } else {
-        $('.system_solving dd:nth-child(3) a').css('color', '#ffffffb3')
-    }
-    if (styleN == 0) {
-
-        $('.system_solving dd:nth-child(4) a').css('color', '#8c8985')
-    } else {
-        $('.system_solving dd:nth-child(4) a').css('color', '#ffffffb3')
-    }
-    if (misspellingN == 0) {
-        $('.system_solving dd:nth-child(5) a').css('color', '#8c8985')
-    } else {
-        $('.system_solving dd:nth-child(5) a').css('color', '#ffffffb3')
-    }
-    if (typographicalN == 0) {
-        $('.system_solving dd:nth-child(6) a').css('color', '#8c8985')
-    } else {
-        $('.system_solving dd:nth-child(6) a').css('color', '#ffffffb3')
-    }
-    if (duplicationN == 0) {
-        $('.system_solving dd:nth-child(7) a').css('color', '#8c8985')
-    } else {
-        $('.system_solving dd:nth-child(7) a').css('color', '#ffffffb3')
-    }
-    if (localeN == 0) {
-        $('.system_solving dd:nth-child(8) a').css('color', '#8c8985')
-    } else {
-        $('.system_solving dd:nth-child(8) a').css('color', '#ffffffb3')
-    }
-    if (inconsistencyN == 0) {
-        $('.system_solving dd:nth-child(9) a').css('color', '#8c8985')
-    } else {
-        $('.system_solving dd:nth-child(9) a').css('color', '#ffffffb3')
-    }
-    if (uncategorizedN == 0) {
-        $('.system_solving dd:nth-child(10) a').css('color', '#8c8985')
-    } else {
-        $('.system_solving dd:nth-child(10) a').css('color', '#ffffffb3')
-    }
-}
+    
+        for(let k in errorN){
+            if(k!='errorsN'){
+                errorN['errorsN'].count+=errorN[k].count;
+            }
+            
+        }
+    
+        $('.system_solving dd a').each(function(){
+            for(let k in errorN){
+             
+                if($(this).prop("class")==errorN[k].name){
+                    $(this).children().html(' (' + errorN[k].count + ')');
+                    if(errorN[k].count==0){
+                        $(this).css('color', '#8c8985');
+        
+                    }else{
+                        $(this).css('color', '#ffffffb3');
+                    }
+                }
+                
+        }
+        })   
+} 
 //封装作文循环遍历错误单词标注方法
 function errorTagging(data) {
 
     //页面一加载显示所有错误标注
+    var ay=data.score;
+    $('#scores').val(ay);
+    var ax=data.comment;
+    if(ax!=""){
+        var ax1=eval("("+ax+")");
+        $('#word').val(ax1.word);
+        $('#sentence').val(ax1.sentence);
+        $('#structure').val(ax1.structure);
+        $('#total').val(ax1.summary);
+    };
 
-    var html = data.original;
+    var html = data.essay_text;
     var m = [];
     for (let i = data.errors.length - 1; i >= 0; i--) {
         for (let j = data.errors[i].questions.length - 1; j >= 0; j--) {
@@ -448,10 +437,17 @@ function errorTagging(data) {
       
         }
     }
-
+    console.log(m);
+    if(m.length === 0){
+        m.push(0);
+        error_count = m[0];
+        console.log(error_count) 
+    }else{
     m.sort(function (a, b) {
                return a-b;});
     error_count = m[m.length - 1]+1;
+    console.log(error_count)  
+    };
     $('.content').html(html.replace(/\r\n/g, "<br/>"))
 
     $('.content span').css('color', '#eb3922');
@@ -464,55 +460,132 @@ function errorTagging(data) {
     errorCategory(data.errors);//侧边栏显示错误类别数量
     errorShow();//显示错误列表
 }
+//右侧单词句子量信息
+function rightInfo(data){
+    $('.middle_content').css('display', 'inline-block');
+    $('.right_show').css('display', 'inline-block');
+    $('.word_details').show();
+
+    $('.right_show ul li div').each(function(){    
+       
+        for(let key in data){
+           
+            if($(this).prop("class")==key){
+                   $(this).children('span').html(data[key]);
+                   
+           
+             }
+            }
+    })
+   
+    var conjunction_word_countN=0;
+    for(let i=0;i<data.conjunction_word_count.length;i++){
+        
+        conjunction_word_countN+=data.conjunction_word_count[i];
+    }
+   
+    $('.conjunction_word_countN span').html(conjunction_word_countN);
+
+};
+ //展示单词句子列表
+function wordSentence(data){
+
+  
+    //实词虚词的数量计算
+    $('.notionalN').html(data.noun_count+data.pron_count+data.adj_count+data.adv_count+data.verb_count+data.num_count);
+    $('.functionN').html(data.art_count+data.prep_count+data.conj_count+data.interj_count);
+    //词性列表
+
+    $('.word_list tr td,.word_list tr td span').each(function(){    
+ 
+        for(let key in data){
+           
+            if($(this).prop("class")==key){
+              
+                if(data[key].length>=2){
+               
+                     $(this).html(data[key].join(' ,  '));
+                    $(this).attr('title', data[key].join(' ,  '));
+                   
+                }else {
+                    $(this).html(data[key]);
+                    $(this).attr('title', '');
+                }
+                
+                          
+             }
+            }
+    })
+
+    //其他词性
+
+    $('.otherword_list tr td').each(function(){    
+ 
+        for(let key in data){
+           
+            if($(this).prop("class")==key){
+    
+                    $(this).html(data[key])
+                }
+  
+            }
+    })
+    var conjunction_word_countN=0;
+    for(let i=0;i<data.conjunction_word_count.length;i++){
+        
+        conjunction_word_countN+=data.conjunction_word_count[i];
+    }
+    $('.conjunction_word_count').html(conjunction_word_countN);
+ 
+    $('.otherword_list tbody').each(function(){    
+       
+        for(let key in data){
+            for(let item in data[key]){
+                if($(this).prop("class")==key){
+                    $(this).append('<tr><td>'+(item*1+1)+'</td><td>'+data[key][item]+'</td></tr>')
+                }
+            }
+        }
+    })
+ 
+    //句型列表 
+    $('.sentence_list div span').each(function(){    
+ 
+        for(let key in data){
+           
+            if($(this).prop("class")==key){
+    
+                    $(this).html(data[key])
+                }
+  
+            }
+    })
+    $('.sentence_list ul').each(function(){    
+       
+        for(let key in data){
+            for(let item in data[key]){
+                if($(this).prop("class")==key){
+                    $(this).append('<li><span></span>'+data[key][item]+'</li>')
+                }
+              
+            }
+           
+        }
+    })
+};
 
 var essay_statistics=[];
 
-    //监听单元格点击事件
-// $("#ti1").click(function() {
-        
-//         $.ajax({
-//             type: 'post',
-//             url:'/load/',
-//             dataType: 'json',
-//             data: $('#kk').serialize(),
-//             success: function (data) {
+    // dataNew=aaa;
+    console.log(dataNew);
+    errorTagging(dataNew);//页面一加载显示所有错误标注
          
-//                 dataNew = data;
-                // dataNew=aaa;
-                // console.log(dataNew);
-                dataNew['essay_statistics']={"word_count": 127, "sentence_count": 10, "avg_sentence_len": 13.86, "sentence_word_1to5": 0, "sentence_word_6to10": 1, "sentence_word_11to15": 3, "sentence_word_16to20": 3, "sentence_word_21to25": 0, "sentence_word_26to30": 0, "sentence_word_31to40": 0, "sentence_word_41to50": 0, "sentence_word_51more": 0, "avg_word_len": 3.74, "long_word_4less": 43, "long_word_4to6": 42, "long_word_7to10": 11, "long_word_11to15": 1, "long_word_16more": 0, "unique_word": 47, "stopwords_count": 31, "noun_count": 18, "adj_count": 1, "adv_count": 6, "verb_count": 15, "foreign_count": 0, "prep_count": 9, "lower_7_count": 91, "grade_7_count": 67, "grade_8_count": 23, "grade_9_count": 19, "higher_9_count": 5, "sentence_simple_count": 5, "sentence_compound_count": 3, "sentence_complex_count": 2, "conjunction_word_count": 5}
-                errorTagging(dataNew);//页面一加载显示所有错误标注
-         
-                //右侧的词汇信息图表
-                $('.middle_content').css('display', 'inline-block');
-                $('.right_show').css('display', 'inline-block');
-                $('.word_details').show();
-                $('.word_countN  span').html(dataNew.essay_statistics.word_count);
-                $('.avg_word_lenN  span').html(dataNew.essay_statistics.avg_word_len.toFixed(1));
-                $('.unique_wordN  span').html(dataNew.essay_statistics.unique_word);
-                $('.conjunction_word_countN  span').html(dataNew.essay_statistics.conjunction_word_count);
-                $('.sentence_countN  span').html(dataNew.essay_statistics.sentence_count);
-                $('.avg_sentence_lenN  span').html(dataNew.essay_statistics.avg_sentence_len.toFixed(1));
-                $('.sentence_simple_countN  span').html(dataNew.essay_statistics.sentence_simple_count);
-                $('.sentence_compound_countN  span').html(dataNew.essay_statistics.sentence_compound_count);
-                $('.sentence_complex_countN  span').html(dataNew.essay_statistics.sentence_complex_count);
-                $('.sentence_compound_complex_countN  span').html(2);
-
-                var showHeight = $(".middle_content").height();
-
-                $('.right_show').css('height', showHeight + 'px');
-                $('.right_show ul').css('height', showHeight-50 + 'px');
-                essay_statistics=dataNew.essay_statistics;
+    essay_statistics=dataNew.essay_statistics;
+    rightInfo(essay_statistics);//右侧的词汇信息图表
+    $('.otherword_list tbody').children().remove();
+    $('.sentence_list ul').children().remove();
+    wordSentence(essay_statistics);//单词句子详情列表
            
-
-//             },
-//             error: function (jqXHR) {
-//                 alert('发生错误：' + jqXHR.status);
-//             }
-//         });
-// });
-
-
 
 //计算鼠标在盒子中的位置 
 function evfun(_this, event) {
@@ -564,14 +637,18 @@ function errorDetails() {
             if ($(e.target).parent().hasClass('show')) {
                 $(e.target).parent().parent().find('.error_mark').show();
 
-                var _this = $('.content');
+                var _this = $('.middle_content');
                 var mouh = evfun(_this, event);
-             
+            
                 if (e.clientY + $(e.target).parent().parent().find('.error_mark').height() + 10 > window.innerHeight) {
-
-                    $(e.target).parent().parent().find('.error_mark').css('top', mouh.y - $(e.target).parent().parent().find('.error_mark').height() - 40);
+                  
+                    $(e.target).parent().parent().find('.error_mark').css('top', mouh.y - $(e.target).parent().parent().find('.error_mark').height() - 50);
                 }
 
+                if(e.clientY + $(e.target).parent().parent().find('.error_mark').height() + 10 <= window.innerHeight && _this.scrollTop()>0){
+                    $(e.target).parent().parent().find('.error_mark').css('top', mouh.y+10);
+                    
+                }
              
             }
 
@@ -586,30 +663,37 @@ function errorDetails() {
 }
 
 //点击撤销按钮，删除该处系统错误标注
+
 function repealDetails(e) {
-    // console.log(e)
+    
+
     var issueType;
     //删除一处系统错误，复制的数组里同步删除
-    for (var i = 0; i < dataNew.errors.length; i++) {
-        for (var j = 0; j < dataNew.errors[i].questions.length; j++) {
+    for (let i = dataNew.errors.length - 1; i >= 0; i--) {
+        for (let j = dataNew.errors[i].questions.length - 1; j >= 0; j--) {
             if (e == dataNew.errors[i].questions[j].id) {
-                issueType = dataNew.errors[i].questions[j].issueType;
+                issueType = dataNew.errors[i].questions[j].issueType
                 dataNew.errors[i].questions.splice(j, 1);
             }
+          
         }
-    };
+    }
+  
     errorTagging(dataNew)//页面一加载显示所有错误标注 
-    // $('.content span').removeClass('show').addClass('hide');
-    // for (let i = 0; i < $('.content span').length; i++) {
-    //     if ($('.content span:eq(' + i + ')').hasClass(issueType)) {
-    //         $('.content span:eq(' + i + ')').removeClass('hide').addClass('show');
-    //     }
-    // }
+
+    if(flag2){
+ $('.content span').removeClass('show').addClass('hide');
+    for (let i = 0; i < $('.content span').length; i++) {
+        if ($('.content span:eq(' + i + ')').hasClass(issueType)) {
+            $('.content span:eq(' + i + ')').removeClass('hide').addClass('show');
+        }
+    }
+    }  
 }
 
 //点击编辑按钮，跳出原始批改编辑框
 function editorDetails(e) {
- 
+
 
     $('.error_mark').hide();
     let pop = document.querySelector('.popup1');
@@ -620,14 +704,15 @@ function editorDetails(e) {
         zIndex: '9',
         closeBtn: 1,
         title: '重新编辑框',
-        area: ['400px', '400px'], //宽高
+        area: ['400px', '400px'],
         content: pop.innerHTML,
-        shadeClose: true,//点击遮罩关闭
+        shadeClose: true,
         btn: ['确认'],
         yes: function (index, layero) {
             popup_confirm1(index, e)
         },
-     
+    
+      
         success: function (layero, index) {
             layui.form.render();
         }
@@ -649,18 +734,17 @@ function editorDetails(e) {
         for (let j = dataNew.errors[i].questions.length - 1; j >= 0; j--) {
 
             if (e == dataNew.errors[i].questions[j].id) {
-                console.log($('.comment1'))
-                console.log($('.comment_type1'))
+             
                 var issueType = dataNew.errors[i].questions[j].issueType;
                 $('.comment1').val(dataNew.errors[i].questions[j].suggestion);
 
                 $('.comment_type1').val(issueTypeChinese[issueType]);
 
             }
-          
-        }
+       
     }
 
+    }
 }
 //重新编辑框内的错误类别下拉列表
 var optionContent1;
@@ -691,13 +775,13 @@ function popup_confirm1(index, e) {
     errorTagging(dataNew)
 
 };
-
-
+var flag2=false;
 //点击错误分类显示所有错误标注
 
 $('.system_solving dd:first-child a').click(function () {
     $('.content span').removeClass('hide').addClass('show');
-
+    flag2=true;
+    document.onselectstart = function(){return true;};
 })
 
 //点击侧边导航栏的不同错误分类显示相应错误标注
@@ -708,14 +792,15 @@ $('.system_solving dd a').not(":first").click(function () {
 
             $('.content span:eq(' + i + ')').removeClass('hide').addClass('show');
         }
+        flag2=true;
+        document.onselectstart = function(){return false;};
 
 })
 
 
-//作文下方逐条显示系统批改详情
 function errorShow() {
     $('.layui_details').empty();
-
+    $('.layui_details_warp').show();
     var index = 1;
     for (let i = 0; i < dataNew.errors.length; i++) {
         var row = document.createElement('DIV');
@@ -730,13 +815,13 @@ function errorShow() {
         var card = document.createElement('DIV');
         $(card).addClass('layui-card').css('box-shadow', '0 1px 2px 0 rgba(0,0,0,0)');
         var card_body = document.createElement('DIV');
-       
-        $(card_body).addClass('layui-card-body').css('height', 'auto').html(dataNew.original.substr(dataNew.errors[i].sentence.offset, dataNew.errors[i].sentence.length));
+    
+        $(card_body).addClass('layui-card-body').css('height', 'auto').html(dataNew.essay_text.substr(dataNew.errors[i].sentence.offset, dataNew.errors[i].sentence.length));
         index++;
         var ul_html = '<ul>';
-      
+        
         var md61 = document.createElement('DIV');
-        $(md61).addClass('layui-col-md5');
+        $(md61).addClass('layui-col-md6');
         var card1 = document.createElement('DIV');
         $(card1).addClass('layui-card').css('box-shadow', '0 1px 2px 0 rgba(0,0,0,0)');
         var card_body1 = document.createElement('DIV');
@@ -756,31 +841,33 @@ function errorShow() {
             display2='none';
         };
             if (dataNew.errors[i].questions.length < 1) {
+               
                 ul_html +=
-                    '<li>错误类型：' +
+                    '<li>错误类型：<span>' +
                     dataNew.errors[i].questions[j].issueType +
-                    '</li><li>错误单词：' +
+                    '</span></li><li>错误单词：<span>' +
                     dataNew.errors[i].questions[j].words +
-                    '</li><li style="display:'+display+'">修改建议：' +
+                    '</span></li><li style="display:'+display+'">修改建议：<span>' +
                     dataNew.errors[i].questions[j].suggestion +
-                    '</li><li style="display:'+display1+'">短语用法：' +
+                    '</span></li><li style="display:'+display1+'">短语用法：<span>' +
                     dataNew.errors[i].questions[j].shortMessage +
-                    '</li><li style="display:'+display2+'">批改解释：' +
+                    '</span></li><li style="display:'+display2+'">批改解释：<span>' +
                     dataNew.errors[i].questions[j].Message +
-                    '</li>';
+                    '</span></li>';
             } else {
+               
                 ul_html +=
-                    '<li>错误类型：' +
+                    '<li class="square">错误类型：<span>' +
                     dataNew.errors[i].questions[j].issueType +
-                    '</li><li>错误单词：' +
+                    '</span></li><li>错误单词：<span>' +
                     dataNew.errors[i].questions[j].words +
-                    '</li><li style="display:'+display+'">修改建议：' +
+                    '</span></li><li style="display:'+display+'">修改建议：<span>' +
                     dataNew.errors[i].questions[j].suggestion +
-                    '</li><li style="display:'+display1+'">短语用法：' +
+                    '</span></li><li style="display:'+display1+'">短语用法：<span>' +
                     dataNew.errors[i].questions[j].shortMessage +
-                    '</li><li style="display:'+display2+'">批改解释：' +
+                    '</span></li><li style="display:'+display2+'">批改解释：<span>' +
                     dataNew.errors[i].questions[j].Message +
-                    '</li><li style="padding: 8px;"></li>';
+                    '</span></li><li></li>';
             
             
             }
@@ -802,7 +889,6 @@ function errorShow() {
         $(row).append(md61);
         $('.layui_details').append(row);
     }
-
 }
 
 //正则替换文中标签，依次替换获取错误单词的位置
@@ -875,17 +961,18 @@ function wordsOffset() {
 
 //批改结果最终提交
 $('.correct_button').click(function () {
-
+    var b5 = $('#scores').val();
+    $('#scores').attr('lay-verify',"required|number")
     var rex = /^[0-9]+.?[0-9]*$/;
-    var flag = rex.test($('#scores').val());
-    if (flag) {
+    var flag = rex.test(b5);
+    if (flag && b5<=100) {
     var b1 = $('#word').val();
     var b2 = $('#sentence').val();
     var b3 = $('#structure').val();
-    var b4 = $('#totle').val();
-    var b5 = $('#scores').val();
-    var b6 ={"word":b1,"sentence":b2,"structure":b3,"totle":b4,"scores":b5}; 
-    var a1 = dataNew.identifier;
+    var b4 = $('#total').val();
+    var b6 ={"word":b1,"sentence":b2,"structure":b3,"summary":b4};
+    var b7 ={"scores":b5}; 
+    var a1 = dataNew.id;
     var a2 = dataNew.essay_statistics;
     var a3 = dataNew.errors;
     var a4 = [];
@@ -896,10 +983,11 @@ $('.correct_button').click(function () {
     };
     var a5 = Array.prototype.concat.apply([], a4);
     var data = {
-        "identifier": a1,
+        "id": a1,
         "essay_statistics": JSON.stringify(a2),
         "questions": JSON.stringify(a5),
         "comment":JSON.stringify(b6),
+        "scores":JSON.stringify(b7),
     };
 
     console.log(data)
@@ -921,12 +1009,59 @@ $('.correct_button').click(function () {
     };
 })
 
+$('.correct_button1').click(function () {
+    $('#scores').removeAttr('lay-verify');
+    var b5 = $('#scores').val();
+    var rex = /^[0-9]+.?[0-9]*$/;
+    var flag = rex.test(b5);
+  
+    if (flag || b5=="") {
+    var b1 = $('#word').val();
+    var b2 = $('#sentence').val();
+    var b3 = $('#structure').val();
+    var b4 = $('#total').val();
+    var b6 ={"word":b1,"sentence":b2,"structure":b3,"summary":b4}; 
+    var b7 ={"scores":b5};
+    var a1 = dataNew.id;
+    var a2 = dataNew.essay_statistics;
+    var a3 = dataNew.errors;
+    var a4 = [];
+    for (var i in a3) {
+        if (a3[i].questions.length > 0) {
+            a4[i] = a3[i].questions;
+        };
+    };
+    var a5 = Array.prototype.concat.apply([], a4);
+    var data = {
+        "id": a1,
+        "essay_statistics": JSON.stringify(a2),
+        "questions": JSON.stringify(a5),
+        "comment":JSON.stringify(b6),
+        "scores":JSON.stringify(b7),
+    };
+
+    console.log(data)
+    //将新数组回传
+    $.ajax({
+        url: '/complete1/',
+        type: "post",
+    
+        traditional: true,
+        data: data,
+        success: function (data) {
+            alert("暂存成功");
+            window.location.href = "/correct/"; 
+        },
+        error: function (data) {
+            alert("暂存失败");
+        },
+    });
+    };
+})
 
 //右侧图表信息展示
 layui.use('element', function () {
     var element = layui.element;
-
-
 });
 
 
@@ -937,47 +1072,38 @@ $(document).on('click', '.word_details', function () {
         title: false,
         closeBtn: 0,
         shadeClose: true,
-        area: ['1100px', '700px'], //宽高
+        area: ['1400px', '700px'], //宽高
 
         skin: 'yourclass',
         content: $('.pop_words')
     });
    
     wordEchart(essay_statistics)//显示词汇详情的弹窗内容
-   
-    console.log(essay_statistics)
+    
 });
 
 layui.use('table', function () {
     var table = layui.table;
-
 });
 
-
-//右侧信息展示宽高随着屏幕放大缩小而同步变化
-window.onresize = function () {
-  
-    var showHeight = $(".middle_content").height();
-
-    $('.right_show').css('height', showHeight + 'px');
-    $('.right_show ul').css('height', showHeight-50 + 'px');
-
-}
 
 
 // 点开详情弹窗内容
 function wordEchart(data) {
-    console.log(data)
     var echarts_bar = document.getElementById('echarts_bar');
     var myChart = echarts.init(echarts_bar);
     option = {
-
+        color:'#6198fe',
         xAxis: {
             type: 'category',
             axisTick: {
                 show: false
             },
-            axisLabel: {interval:0,rotate:40 },
+            axisLabel: {
+                interval: 0,  
+                rotate: 45,   
+             
+                        },
             data: ['小学', '七年级', '八年级', '九年级', '高年级']
         },
         yAxis: {
@@ -987,16 +1113,6 @@ function wordEchart(data) {
             data: [data.lower_7_count, data.grade_7_count, data.grade_8_count,data.grade_9_count, data.higher_9_count],
             type: 'bar',
             barWidth: 20,
-            itemStyle: {
-                normal: {
-
-                    color: function (params) {
-
-                        var colorList = ['#6198fe'];
-                        return colorList[params.dataIndex]
-                    }
-                }
-            },
             label: {
                 show: true,
                 position: 'top',
@@ -1033,7 +1149,7 @@ function wordEchart(data) {
                 normal: {
 　　　　　　　
                 color: function(params) {
-                	
+                    
                     var colorList = ['#bcdaff','#8dc1fe','#6198fe','#3f89f9','#3377fe'];
                     return colorList[params.dataIndex]
                 }
@@ -1072,7 +1188,7 @@ function wordEchart(data) {
     var myChart2 = echarts.init(echarts_pie2);
 
     option2 = {
-
+  
     legend: {
         orient: 'vertical',
         x: 'left',
@@ -1092,10 +1208,10 @@ function wordEchart(data) {
                 avoidLabelOverlap: false,
                 itemStyle: {
                     normal: {
-                        
+        　　　　　　　
                         color: function(params) {
                             
-                            var colorList = ['#e4efff','#bcdaff','#8dc1fe','#6198fe','#3377fe'];
+                            var colorList = ['#e4efff','#bcdaff','#8dc1fe','#6198fe','#3377fe','#084ecf','#083c9e','#0d2d6a','#0a1d41'];
                             return colorList[params.dataIndex]
                         }
                     }},
@@ -1131,13 +1247,13 @@ function wordEchart(data) {
             }
         ]
     };
-
+    // 使用刚指定的配置项和数据显示图表。
     myChart2.setOption(option2,true);
 
     var echarts_pie3= document.getElementById('echarts_pie3');
     var myChart3 = echarts.init(echarts_pie3);
     option3 = {
-          
+             
                 tooltip : {
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -1147,19 +1263,14 @@ function wordEchart(data) {
                     {
                         name: '句型占比',
                         type: 'pie',
-                        radius : '80%',
-                        center: ['50%', '50%'],
-                        label:{
-                            normal:{
-                                 formatter: '{b}({c})',
-                                 position: 'inside'
-                            },
-        
-                        },
+                        radius : '60%',
+                        center: ['50%', '55%'],
+                       
                         data:[
                             {value:data.sentence_simple_count, name:'简单句'},
                             {value:data.sentence_compound_count, name:'并列句'},
                             {value:data.sentence_complex_count, name:'复合句'},
+                            {value:data.sentence_compound_complex_count, name:'并列复合句'},
                            
                         ],
                         itemStyle: {
@@ -1172,8 +1283,7 @@ function wordEchart(data) {
                                 color:function(params) {
                                 //自定义颜色
                                 var colorList = [          
-                                    '#bcdaff','#8dc1fe','#6198fe'
-                                    ];
+                                    '#bcdaff','#8dc1fe','#6198fe','#3377fe'];
                                     return colorList[params.dataIndex]
                                  }
                             }
@@ -1184,9 +1294,6 @@ function wordEchart(data) {
             myChart3.setOption(option3,true);
 
 
-            //展示实词虚词的数量
-            $('.notionalN').html(data.noun_count+data.adj_count+data.adv_count+data.verb_count);
-            $('.functionN').html(data.prep_count);
 
 }
 
@@ -1205,3 +1312,17 @@ function wordEchart1(){
     echarts_pie3.removeAttribute("_echarts_instance_"); 
 
 }
+
+
+//得分 只能输入0~100的数字
+$(document).on("input propertychange",".inputNumberDot",function(){
+    var limitNum = $(this).val().replace(/[^0-9.]+/g, "");
+    if(limitNum>=0&&limitNum<=100){
+        $(this).val(limitNum);
+    }else{
+        $(this).val('');
+        $(this).addClass("errorCla");
+        $(this).attr('placeholder', '请输入0~100的数字');
+    }
+
+})

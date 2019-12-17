@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'check',
-      component: Check
+      name: 'user',
+      component: User
     },
     // 作文筛选页面
     {

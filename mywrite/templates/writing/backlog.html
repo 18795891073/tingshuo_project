@@ -7,7 +7,9 @@
   <title>待办工作事项</title>
   <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
   <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
-  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../static/css/foot.css">
+  <link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
+  <script src="../../static/layui/js/jquery-3.3.1.js"></script>
 </head>
 <body>
   <div>
@@ -31,7 +33,7 @@
             <span>|</span>
             <a href="/correct/">作文批改</a>
             <span>|</span>
-            <a>我的报酬</a>
+            <a href="/backlog/">我的任务</a>
             <span>|</span>
             <a href="/logout/">退出</a>
             {% endifequal %}
@@ -43,9 +45,11 @@
           </div>
           <div class="user_link fl">
               <span>|</span>
-              <a href="/personalinfo/">用户中心</a>
+              <!-- <a href="/personalinfo/">用户中心</a> -->
+              <a>用户中心</a>
               <span>|</span>
-              <a href="/showcart/">我的购物车</a>
+              <a>我的购物车</a>
+              <!-- <a href="/showcart/">我的购物车</a> -->
               <span>|</span>
               <a href="/home/">主页</a>
           </div>
@@ -58,12 +62,19 @@
         <table id="backlog_demo" lay-filter="test"></table>
       </div>
     </div>
-    
-    
+    <form class='form-login' action="/correct2/" method="post">
+        <input style="display:none" id='hka' name='ac'>
+            <button class="btn-agree" type="submit" style="display:none;width:250px;height:50px; font-size:28px;color:#5fb878;margin-left: 828px">
+                            继续完成
+            </button>      
+    </form>
   </div>
   <script src="../../static/layui/layui.js"></script>
-  <script src="../../static/layui/js/jquery-3.3.1.js"></script>
   <script>
+    if(window.devicePixelRatio>1||window.devicePixelRatio<1){
+        alert('缩放比例设置成默认（100%），体验更好哦！')
+        //console.log(111,window.devicePixelRatio)  //正常1 正常100%状态
+    };
     // 使用表格组件
     layui.use('table',function(){
       var table = layui.table;
@@ -73,7 +84,7 @@
         elem:'#backlog_demo',
         method: 'post',
         // height:400,
-        url:'http://192.168.1.150:9000/test/',//数据接口
+        url:'http://192.168.1.150:8080/test/',//数据接口
         where: {
           'uid':2
         },
@@ -86,40 +97,31 @@
             }
         },
         cols:[[//表头
-          {field:'id',title:'事件编号',style: 'cursor: pointer;', align: 'center',width:'12%'},
-          {field:'time',title:'开始时间',style: 'cursor: pointer;', align: 'center',width:'22%',
-        templet:function(d){
-          console.log(d)
-          return util.toDateString(d.time);
-        }},
-          {field:'number',title:'文章编号',style: 'cursor: pointer;', align: 'center',width:'22%'},
-          {field:'state',title:'文章标题',style: 'cursor: pointer;', align: 'center',width:'22%'},
-          {field:'type1',title:'待办事件',style: 'cursor: pointer;', align: 'center',width:'22%'}
+          {field:'id',title:'事件编号',style: 'cursor: pointer;', align: 'center'},
+          {field:'time',title:'开始时间',style: 'cursor: pointer;', align: 'center',templet:function(d){
+                return util.toDateString(d.time);}},
+          {field:'essay_id',title:'文章编号',style: 'cursor: pointer;', align: 'center'},
+          {field:'title',title:'文章标题',style: 'cursor: pointer;', align: 'center'},
+          {field:'type',title:'待办事件',style: 'cursor: pointer;', align: 'center'},
         ]],
       });
 
       // 监听单元格点击事件
       table.on('row(test)', function (obj) {
         console.log(obj)
-        var num = obj.data.number;
+        var num = obj.data.essay_id;
         // 为单击行设置样式
         $(".layui-table-body tr ").attr({"style":"background:#FFFFFF"});
         $(obj.tr).attr({"style":"background:#999"});
-        // 页面跳转接口
-        $.ajax({
-          type: 'post',
-          url: 'http://192.168.1.150:9000/test1/',
-          dataType: 'json',
-          data: { 'number': num },
-          // success: function () {
-            
-          // },
-          error: function (jqXHR) {
-            alert('发生错误：' + jqXHR.status);
-          }
-        });
-      })
-    });
+        $('#hka').val(num);
+        if (obj.data.state=="marking"){
+           $('.btn-agree').css('display','block');
+        }
+        else{
+           $('.btn-agree').css('display','none');
+        };
+        })
+     })
     
   </script>
   

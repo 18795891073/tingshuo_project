@@ -6,6 +6,8 @@ import App from './App'
 import router from './router'
 import moment from 'moment'
 import $ from 'jquery'
+import VDistpicker from 'v-distpicker'
+
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
