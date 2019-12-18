@@ -7,10 +7,12 @@ import router from './router'
 import moment from 'moment'
 import $ from 'jquery'
 import VDistpicker from 'v-distpicker'
+import SIdentify from './components/identify'
 
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
+Vue.component("SIdentify",SIdentify)
 
 // axios.defaults.baseURL = '/pre'
 /* eslint-disable no-new */
