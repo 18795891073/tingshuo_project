@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/foot.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/layui/css/style.css">
+     <script src="/static/js/jquery-3.3.1.js"></script>
+</head>
+<body>
+    <div class="header_con">
+        <div class="header">
+            <div class="welcome fl">欢迎来到听说科技</div>
+            <div class="fr">
+                <div class="login_btn fl">
+                    {% if request.session.is_login %}
+                    欢迎您：<span>{{ request.session.user_name }}</span>
+                    {% ifequal request.session.user_identity 'student' %}
+                    <span id='l5'>|</span>
+                    <a id='watch'>我的作文</a>
+                    <span>|</span>
+                    <a href="/package/">我的套餐</a>
+                    <span>|</span>
+                    <a href="/logout/">退出</a>
+                    {% else %}
+                    <span>|</span>
+                    <a href="">作文批改</a>
+                    <span>|</span>
+                    <a href="/backlog/">我的任务</a>
+                    <span>|</span>
+                    <a href="/logout/">退出</a>
+                    {% endifequal %}
+                    {% else %}
+                    <a href="/login/">登录</a>
+                    <span>|</span>
+                    <a href="/register/">注册</a>
+                    {% endif %}
+                </div>
+                <div class="user_link fl">
+                    <span>|</span>
+                    <!-- <a href="/personalinfo/">用户中心</a> -->
+                    <a>用户中心</a>
+                    <span>|</span>
+                    <!-- <a href="/showcart/">我的购物车</a> -->
+                    <a>我的购物车</a>
+                    <span>|</span>
+                    <a href="/home/">主页</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="search_bar clearfix">
+        <a href="" class="logo fl"><img src="{% static '/images/logo.png' %}"></a>
+        <div class="search_con fl">
+            <input type="text" class="input_text fl" name="" placeholder="搜索商品">
+            <input type="button" class="input_btn fr" name="" value="搜索">
+        </div>
+        <!-- <div class="guest_cart fr">
+            <a href="{% url 'showcart' %}" class="cart_name fl">我的购物车</a>
+            <div class="goods_count fl" id="show_count">0</div>
+        </div> -->
+    </div>
+<style>
+        #write{
+            padding-top: 30px;
+            border-radius: 5px;
+            border-width: 1px 1px 2px;
+            border-style: solid;
+            border-color: #7bbadb #b3d7ea #c7e0ed #7bbadb;
+            overflow: auto;
+            padding: 5px 0px 0px 5px;
+            word-wrap: break-word;
+            width: 800px;
+            height: 600px;
+            background: #fff;
+            font-size: 14px;
+        }
+        .delcon{
+            width: 30%;
+            overflow: hidden;
+            background: #fff;
+            box-sizing: border-box;
+            border: 5px solid #4de636;
+            position: fixed;
+            left: 33%;
+            top: 20%;
+            z-index: 999;
+            display: none;
+        }
+        .desure{
+            width: 100%;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            margin-top:45px;
+            margin-bottom: 30px;
+            color: red;
+            font-size: 20px;
+        }
+        .delfoot{
+            text-align: center;
+            width: 100%;
+            height: 35px;
+            margin-bottom: 20px;
+        }
+        .delcer{
+            float: left;
+            margin-left: 20%;
+            width: 80px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            background: #4de636;
+            cursor: pointer;
+        }
+        .delcan{
+            float: left;
+            margin-left: 30%;
+            width: 80px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            color: #fff;
+            font-size: 12px;
+            box-sizing: border-box;
+            background: #4de636;
+            cursor: pointer;
+
+        }
+</style>
+    <div class='hg' style="text-align:center">
+        <form id="kk2" action="##" method="post" onsubmit="return false">
+         <textarea id='write' name="write"></textarea>
+         <div>
+            <!-- <button id="ti">提交</button> -->
+         <input type="submit" id="ti" value="提交">
+         </div>
+        </form>
+    </div>
+<script src="/static/js/jquery-3.3.1.js"></script>
+<script>
+  $("#ti").click(function(){
+   $(".hg").after(
+    '<div class="delcon"><div class="desure" color="red">每次提交将会减少套餐剩余次数，请确认!</div><div class="delfoot"><div class="delcer">确认</div><div class="delcan">取消</div></div></div>'
+    );
+   $(".delcon").fadeIn();
+   $('.delcer').click(function(){
+            $(".delcon").remove();
+            $.ajax({
+                type: "POST",
+                url: "/submit/",
+                data: $('#kk2').serialize(),
+                success:function (data) {
+                 alert(data.data); 
+                 $('#write').val("");  
+                },
+                error:function () {
+                 alert("出现错误") 
+                },
+            });
+    });      
+    $('.delcan').click(function(){
+            $(".delcon").remove();
+    });
+  })  
+</script>
+<script>
+ $("#watch").click(function() {
+    $("#watch").css("display","none");
+    $("#watch").before("<a href='/write/'>写作训练</a>");
+    $('.hg').html('');
+    $.ajax({
+                type: "GET",
+                url: "/web/",
+                success:function (data){
+                        var m = data.data;
+                        var str = "";
+                        str += "<table border='solid'style='width:960px;text-align:center;'><tr><th>文章编号</th><th>原文展示</th><th>批改状态</th><tr>";
+                        for (var i = 0; i < m.length; i++) {
+                             var g = m[i]['identifier'];
+                             str += "<tr class='"+g+"'>";
+                             str += " <td>" + m[i]['identifier'] + "</td>";
+                             str += " <td>" + m[i]['original'].slice(0,80)+'...' + "</td>";
+                             str += " <td>" + m[i]['state'] + "</td>";
+                             str += "</tr>";
+                             var g1="."+g;
+                             $(g1).css({
+                                'cursor': 'pointer'
+                              });
+                             $(g1).click(function(){
+                                $.ajax({
+                                   type: "GET",
+                                   url: "/check/"+"&random="+new Date().getTime(),
+                                   data:{'identifier':g},
+                                   success:function (data){
+                                         var m = data.data;
+                                         $('.search_bar.clearfix').append('<div class="middle_right" style="padding-left:150px">'+m+'</div>');
+                                   },
+                                   error:function () {
+                                         alert("未找到文章")
+                                   },
+                                });
+
+                             });
+                            }
+                        str += "</table>";
+                        $('.search_bar.clearfix').append('<div class="middle_right" style="padding-left:150px">'+str+'</div>');
+                        
+                
+                },
+                error:function () {
+                 alert("未找到文章")
+                },
+    });
+ })
+</script>
+<div id="divInfo" style="visibility:hidden;">
+<p>向上增加一行</p><br/>
+<p>修改此行</p><br/>
+<p>向下增加一行</p>
+</div>
+<script type="text/javascript">
+$(".hello").mouseover(function(){
+$("#divInfo").css("z-index",999);//让层浮动
+$("#divInfo").css("top",this.top+行高);//设置提示div的位置
+$("#divInfo").css("left",11);
+$("#divInfo").css("visibility","visible");
+})
+</script>
+
+</body>
+<style>
+body{ padding-bottom:50px;}
+.footer_nav_box{ position:fixed; left:0px; bottom:0px; width:100%; height:50px; z-index:9999;}
+</style>
+<!-- <div class="footer_nav_box">
+        <div class="footer_nav">
+            <a href="http://www.waiyutong.org/about.html" target="_blank" rel="nofollow">关于听说</a>
+            <span class="sep">|</span>
+            <a href="http://www.waiyutong.org/joinUs.html" target="_blank">加入听说</a>
+            <span class="sep">|</span>
+            <a href="https://www.waiyutong.org/download.html" target="_blank">下载中心</a>
+            <span class="sep">|</span>
+            <a href="http://www.waiyutong.org/questions.html" target="_blank">常见问题</a>
+            <span class="sep">|</span>
+            <a href="http://www.waiyutong.org/qdlm.html" target="_blank">渠道联盟</a>
+        </div>
+        <div class="footer_copyright">
+            <span>Copyright © 2008-2019 南京听说科技有限公司 All Rights Reserved 电信增值业务许可证:苏B2-20160570</span>
+        </div> -->
+
+        <!-- 有三个icon的时候加footer_icon2 -->
+    <!--     <div class="clear"></div>
+    </div> -->
+   <script type="text/javascript"   src="{% static 'js/common.js' %}"></script>
+</html>

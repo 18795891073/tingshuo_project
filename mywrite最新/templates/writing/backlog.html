@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>待办工作事项</title>
+  <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/foot.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+  <script src="/static/layui/js/jquery-3.3.1.js"></script>
+</head>
+<body>
+  <div>
+    <!-- 页面导航栏 -->
+    <div class="header_con">
+      <div class="header">
+        <div class="welcome fl">欢迎来到听说科技</div>
+        <div class="fr">
+          <div class="login_btn fl">
+            {% if request.session.is_login %}
+            欢迎您：
+            <span>{{ request.session.user_name }}</span>
+            {% ifequal request.session.user_identity 'student' %}
+            <span>|</span>
+            <a href="/write/">写作训练</a>
+            <span>|</span>
+            <a href="/package/">我的套餐</a>
+            <span>|</span>
+            <a href="/logout/">退出</a>
+            {% else %}
+            <span>|</span>
+            <a href="/correct/">作文批改</a>
+            <span>|</span>
+            <a href="/backlog/">我的任务</a>
+            <span>|</span>
+            <a href="/logout/">退出</a>
+            {% endifequal %}
+            {% else %}
+            <a href="/login/">登录</a>
+            <span>|</span>
+            <a href="/register/">注册</a>
+            {% endif %}
+          </div>
+          <div class="user_link fl">
+              <span>|</span>
+              <!-- <a href="/personalinfo/">用户中心</a> -->
+              <a>用户中心</a>
+              <span>|</span>
+              <a>我的购物车</a>
+              <!-- <a href="/showcart/">我的购物车</a> -->
+              <span>|</span>
+              <a href="/home/">主页</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 表格内容 -->
+    <div style="display:flex;justify-content: center;">
+      <div style="width:80%;margin-top:70px;">
+        <table id="backlog_demo" lay-filter="test"></table>
+      </div>
+    </div>
+    <form class='form-login' action="/correct2/" method="post">
+        <input style="display:none" id='hka' name='ac'>
+            <button class="btn-agree" type="submit" style="display:none;width:250px;height:50px; font-size:28px;color:#5fb878;margin-left: 828px">
+                            继续完成
+            </button>      
+    </form>
+  </div>
+  <script src="/static/layui/layui.js"></script>
+  <script>
+    if(window.devicePixelRatio>1||window.devicePixelRatio<1){
+        alert('缩放比例设置成默认（100%），体验更好哦！')
+        //console.log(111,window.devicePixelRatio)  //正常1 正常100%状态
+    };
+    // 使用表格组件
+    layui.use('table',function(){
+      var table = layui.table;
+      var util = layui.util;
+      // 第一个实例
+      table.render({
+        elem:'#backlog_demo',
+        method: 'post',
+        // height:400,
+        url:'/test/',//数据接口
+        where: {
+          'uid':2
+        },
+        parseData: function (res) {
+            return {
+                "code": 0,
+                "msg": '',
+                "count":res.data.length,
+                "data": res.data
+            }
+        },
+        cols:[[//表头
+          {title:'序号',type:'numbers',style: 'cursor: pointer;', align: 'center'},
+          {field:'time',title:'开始时间',style: 'cursor: pointer;', align: 'center',templet:function(d){
+                return util.toDateString(d.time);}},
+          // {field:'essay_id',title:'文章编号',style: 'cursor: pointer;', align: 'center'},
+          {field:'title',title:'文章标题',style: 'cursor: pointer;', align: 'center'},
+          {field:'type',title:'待办事件',style: 'cursor: pointer;', align: 'center'},
+        ]],
+      });
+
+      // 监听单元格点击事件
+      table.on('row(test)', function (obj) {
+        console.log(obj)
+        var num = obj.data.essay_id;
+        // 为单击行设置样式
+        $(".layui-table-body tr ").attr({"style":"background:#FFFFFF"});
+        $(obj.tr).attr({"style":"background:#999"});
+        $('#hka').val(num);
+        if (obj.data.state=="marking"){
+           $('.btn-agree').css('display','block');
+        }
+        else{
+           $('.btn-agree').css('display','none');
+        };
+        })
+     })
+    
+  </script>
+  
+</body>
+</html>
