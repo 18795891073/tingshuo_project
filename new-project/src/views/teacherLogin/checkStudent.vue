@@ -6,70 +6,20 @@
         <div style="margin-right:10px;font-size:13px;color:#999;">欢迎来到听说科技</div>
         <el-menu-item index="1">欢迎您：222</el-menu-item>
         <div>|</div>
-        <el-menu-item index="2">作文批改</el-menu-item>
+        <el-menu-item index="2"><a href="http://localhost:8080/#/check">作文批改</a></el-menu-item>
         <div>|</div>
-        <el-menu-item index="3">我的报酬</el-menu-item>
+        <el-menu-item index="3"><a href="http://localhost:8080/#/reward">我的报酬</a></el-menu-item>
         <div>|</div>
-        <el-menu-item index="4">退出</el-menu-item>
+        <el-menu-item index="4"><a href="http://localhost:8080/#/login">退出</a></el-menu-item>
         <div>|</div>
-        <el-menu-item index="5">用户中心</el-menu-item>
+        <el-menu-item index="5"><a href="http://localhost:8080/#/user">用户中心</a></el-menu-item>
         <div>|</div>
-        <el-menu-item index="6">我的购物车</el-menu-item>
+        <el-menu-item index="6"><a href="http://localhost:8080/#/shoppingCar">我的购物车</a></el-menu-item>
         <div>|</div>
         <el-menu-item index="7"><a href="http://localhost:8080/#/index">主页</a></el-menu-item>
       </el-menu>
       <!-- 导航栏下面的内容 -->
       <div style="display:flex;">
-        <!-- 侧边栏 -->
-        <!-- <div style="width:200px;">
-          <el-menu style="background:#009688;">
-            <el-menu-item index="1">
-              <span slot="title" style="font-size:18px;">错误分类</span>
-            </el-menu-item>
-            <el-menu-item index="2" style="margin-left:30px;">
-              <span slot="title">空白提示</span>
-            </el-menu-item>
-            <el-menu-item index="3" style="margin-left:30px;">
-              <span slot="title">语法错误</span>
-            </el-menu-item>
-            <el-menu-item index="4" style="margin-left:30px;">
-              <span slot="title">句子冗长</span>
-            </el-menu-item>
-            <el-menu-item index="5" style="margin-left:30px;">
-              <span slot="title">拼写错误</span>
-            </el-menu-item>
-            <el-menu-item index="6" style="margin-left:30px;">
-              <span slot="title">排版问题</span>
-            </el-menu-item>
-            <el-menu-item index="7" style="margin-left:30px;">
-              <span slot="title">重复提示</span>
-            </el-menu-item>
-            <el-menu-item index="8" style="margin-left:30px;">
-              <span slot="title">美式英语</span>
-            </el-menu-item>
-            <el-menu-item index="9" style="margin-left:30px;">
-              <span slot="title">搭配不当</span>
-            </el-menu-item>
-            <el-menu-item index="10" style="margin-left:30px;">
-              <span slot="title">未分类处</span>
-            </el-menu-item>
-            <el-menu-item index="10" style="margin-left:30px;">
-              <span slot="title"></span>
-            </el-menu-item>
-            <el-menu-item index="10" style="margin-left:30px;">
-              <span slot="title"></span>
-            </el-menu-item>
-            <el-menu-item index="10" style="margin-left:30px;">
-              <span slot="title"></span>
-            </el-menu-item>
-            <el-menu-item index="10" style="margin-left:30px;">
-              <span slot="title"></span>
-            </el-menu-item>
-            <el-menu-item index="10" style="margin-left:30px;">
-              <span slot="title"></span>
-            </el-menu-item>
-          </el-menu>
-        </div> -->
         <!-- 时间、年级、地区、表格、分页 -->
         <div style="margin-left:166px;">
           <!-- 时间（单选框） -->
@@ -198,7 +148,7 @@ export default {
   data(){
     return{
     // 存放变量
-      activeIndex:"1",
+      activeIndex:"2",
       radio:1,
       checkboxGroup1:[],
       checkboxGroup2:[],
@@ -296,6 +246,11 @@ export default {
 </script>
 
 <style scoped>
+  a{
+    display:inline-block;
+    width:100%;height:100%;
+    text-decoration:none;
+  }
   .select-border{
     display:flex;
     margin:20px 15px 10px 5px;

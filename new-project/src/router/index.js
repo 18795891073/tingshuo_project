@@ -4,6 +4,9 @@ import Check from '../views/teacherLogin/checkStudent.vue'
 import Login from '../views/teacherLogin/login.vue'
 import Index from '../views/teacherLogin/index.vue'
 import User from '../views/teacherLogin/user.vue'
+import Reward from '../views/teacherLogin/myReward.vue'
+import ShoppingCar from '../views/teacherLogin/myShoppingCar.vue'
+
 
 Vue.use(Router)
 
@@ -11,8 +14,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'user',
-      component: User
+      name: 'login',
+      component: Login
     },
     // 作文筛选页面
     {
@@ -26,16 +29,29 @@ export default new Router({
       name:'login',
       component:Login
     },
+    // 主页
     {
       path:'/index',
       name:'index',
       component:Index
     },
-    // 练习页面
+    // 用户页面
     {
       path:'/user',
       name:'user',
       component:User
+    },
+    // 报酬页面
+    {
+      path:'/reward',
+      name:'reward',
+      component:Reward
+    },
+    // 购物车页面
+    {
+      path:'/shoppingCar',
+      name:'shoppingCar',
+      component:ShoppingCar
     }
   ]
 })

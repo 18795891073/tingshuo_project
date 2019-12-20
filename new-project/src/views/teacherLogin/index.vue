@@ -8,13 +8,13 @@
         <div>|</div>
         <el-menu-item index="2"><a href="http://localhost:8080/#/check">作文批改</a></el-menu-item>
         <div>|</div>
-        <el-menu-item index="3">我的报酬</el-menu-item>
+        <el-menu-item index="3"><a href="http://localhost:8080/#/reward">我的报酬</a></el-menu-item>
         <div>|</div>
-        <el-menu-item index="4">退出</el-menu-item>
+        <el-menu-item index="4"><a href="http://localhost:8080/#/login">退出</a></el-menu-item>
         <div>|</div>
-        <el-menu-item index="5">用户中心</el-menu-item>
+        <el-menu-item index="5"><a href="http://localhost:8080/#/user">用户中心</a></el-menu-item>
         <div>|</div>
-        <el-menu-item index="6">我的购物车</el-menu-item>
+        <el-menu-item index="6"><a href="http://localhost:8080/#/shoppingCar">我的购物车</a></el-menu-item>
         <div>|</div>
         <el-menu-item index="7"><a href="http://localhost:8080/#/index">主页</a></el-menu-item>
       </el-menu>
@@ -108,7 +108,7 @@
 export default {
   data(){
     return{
-      activeIndex:"1",
+      activeIndex:"7",
       items:[
         {src:require('../../assets/images/login_bgk.jpg')},
         {src:require('../../assets/images/right_1.jpg')},
@@ -177,6 +177,11 @@ export default {
   }
   .footer_ul li:hover{
     color:#999;
+  }
+  a{
+    display:inline-block;
+    width:100%;height:100%;
+    text-decoration: none;
   }
 </style>>
 <style>

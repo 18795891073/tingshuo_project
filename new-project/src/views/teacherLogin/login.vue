@@ -16,8 +16,8 @@
               <span style="font-size:12px;color:#666;">请勿设置与邮箱及其他网站相同的登录及支付密码，</span>
               <span style="font-size:12px;color:#f00;">谨防诈骗！</span>
             </div>
-            <div>
-              <div style="margin:10px 0 15px 0;font-size:18px;">密码登录</div>
+            <div style="margin-left:5px;">
+              <div style="margin:10px 0 15px 0;font-size:18px;">用户登录</div>
               <div>
                 <span>用户名：</span>
                 <div class="user_cover" style="display:inline-block;width:190px;height:32px;border:1px solid #999;">
@@ -27,7 +27,7 @@
               </div>
               <div>
                 <span>密码：</span>
-                <div  style="margin:15px 0 0 16px;display:inline-block;width:190px;height:32px;border:1px solid #999; ">
+                <div  style="margin:0px 0 0 16px;display:inline-block;width:190px;height:32px;border:1px solid #999; ">
                   <input type="password" placeholder="请输入密码" class="user_password">
                 </div>
                 <span class="login_password" style="font-size:12px;color:#f00;display:block;margin-left:68px;height:15px;"></span> 
@@ -107,7 +107,7 @@ export default {
         $('.login_username').html('！用户名不能为空').show();  
         this.name_error = true;  
       } else {
-        $('.login_username').hide();
+        // $('.login_username').hide();
         this.name_error = false;
       }
     },
@@ -117,16 +117,15 @@ export default {
         $('.login_password').html('！密码不能为空').show();
         this.pwd_error = true;
       } else {
-        $('.login_password').hide();
+        // $('.login_password').hide();
         this.pwd_error = false;
       }
     },
     go(){ 
       this.checkUserName();
       this.checkPassword();
-      if(this.name_error == false && this.pwd_error == false){
-        alert(this.num)
-        //this.$router.push('/index');         //登录后跳转到首页
+      if(this.name_error == false && this.pwd_error == false && this.num){
+        this.$router.push('/index');         //登录后跳转到首页
       } else {
         console.log('输入有误');
         return false;
