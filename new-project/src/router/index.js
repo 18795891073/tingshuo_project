@@ -7,15 +7,18 @@ import User from '../views/teacherLogin/user.vue'
 import Reward from '../views/teacherLogin/myReward.vue'
 import ShoppingCar from '../views/teacherLogin/myShoppingCar.vue'
 
+// newProject
+import Calculator from '../views/newProject/calculator.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    // teacherLogin路由
     {
       path: '/',
       name: 'login',
-      component: Login
+      component: Calculator
     },
     // 作文筛选页面
     {
@@ -52,6 +55,13 @@ export default new Router({
       path:'/shoppingCar',
       name:'shoppingCar',
       component:ShoppingCar
+    },
+    // newProject路由
+    {
+      path: '/calculator',
+      name: 'calculator',
+      component: Calculator
     }
+    
   ]
 })

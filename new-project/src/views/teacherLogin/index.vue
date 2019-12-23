@@ -110,11 +110,12 @@ export default {
     return{
       activeIndex:"7",
       items:[
-        {src:require('../../assets/images/login_bgk.jpg')},
-        {src:require('../../assets/images/right_1.jpg')},
-      //   {src:require('../../assets/images/')},
-      //   {src:require('../../assets/images/')},
-      //   {src:require('../../assets/images/')}
+        {src:require('../../assets/images/carousel_1.jpg')},
+        {src:require('../../assets/images/carousel_2.jpg')},
+        {src:require('../../assets/images/carousel_3.jpg')},
+        {src:require('../../assets/images/carousel_4.jpg')},
+        {src:require('../../assets/images/carousel_5.jpg')},
+        {src:require('../../assets/images/carousel_6.jpg')}
       ],
       index:0,
     }
