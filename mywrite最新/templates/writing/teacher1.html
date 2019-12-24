@@ -1,225 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>教师批改页面</title>
-        <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
-        <link rel="stylesheet" type="text/css" href="../../static/css/main1.css">
-        <script src="../../static/js/jquery-3.3.1.js"></script>
-
-        <style>
-         .btn-agree{
-            margin:48px 0 2px 1200px;
-            width:230px;height:50px;
-            background:#0a0;
-            font-size:18px;
-            color:#fff;
-            border:1px solid #fff;
-            cursor: pointer;
-            /* display:none; */
-        }
-        .btn-agree:hover{
-            background:#f00;
-            color:#999;
-        }
-        .delcon{
-            width: 30%;
-            overflow: hidden;
-            background: #fff;
-            box-sizing: border-box;
-            border: 5px solid #009688;
-            position: fixed;
-            left: 33%;
-            top: 20%;
-            z-index: 999;
-            display: none;
-        }
-        .desure{
-            width: 100%;
-            height: 35px;
-            line-height: 35px;
-            text-align: center;
-            margin-top:45px;
-            margin-bottom: 30px;
-            color: red;
-            font-size: 20px;
-        }
-        .delfoot{
-            text-align: center;
-            width: 100%;
-            height: 35px;
-            margin-bottom: 20px;
-        }
-        .delcer{
-            float: left;
-            margin-left: 20%;
-            width: 80px;
-            height: 35px;
-            line-height: 35px;
-            text-align: center;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 700;
-            background-color: #009688;
-            cursor: pointer;
-            border:0;
-            border-radius:3px;
-        }
-        .delcan{
-            float: left;
-            margin-left: 30%;
-            width: 80px;
-            height: 35px;
-            line-height: 35px;
-            text-align: center;
-            color: #fff;
-            font-size: 12px;
-            box-sizing: border-box;
-            background-color: #009688;
-            cursor: pointer;
-            border:0;
-            border-radius:3px;
-
-        }
-        </style>
-
-    </head>
-
-    <body>
-        <div class="layui-layout layui-layout-admin">
-            <div class="header_con">
-               <div class="header">
-               <div class="welcome fl">欢迎来到听说科技</div>
-                <div class="fr">
-                  <div class="login_btn fl">
-                    {% if request.session.is_login %}
-                    欢迎您：<span>{{ request.session.user_name }}</span>
-                    {% ifequal request.session.user_identity 'student' %}
-                    <span>|</span>
-                    <a href="/write/">写作训练</a>
-                    <span>|</span>
-                    <a href="/package/">我的套餐</a>
-                    <span>|</span>
-                    <a href="/logout/">退出</a>
-                    {% else %}
-                    <span>|</span>
-                    <a href="/correct/">作文批改</a>
-                    <span>|</span>
-                    <a href="/backlog/">我的任务</a>
-                    <span>|</span>
-                    <a href="/logout/">退出</a>
-                    {% endifequal %}
-                    {% else %}
-                    <a href="/login/">登录</a>
-                    <span>|</span>
-                    <a href="/register/">注册</a>
-                    {% endif %}
-                  </div>
-                  <div class="user_link fl">
-                    <span>|</span>
-                    <!-- <a href="/personalinfo/">用户中心</a> -->
-                    <a>用户中心</a>
-                    <span>|</span>
-                    <!-- <a href="/showcart/">我的购物车</a> -->
-                    <a>我的购物车</a>
-                    <span>|</span>
-                    <a href="/home/">主页</a>
-                  </div>
-                </div>
-                </div>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>教师批改页面</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../static/css/main1.css">
+    <script src="../../static/js/jquery-3.3.1.js"></script>
+    <style>
+    .layui-table-body{overflow-x: hidden;}
+    .btn-agree{
+      margin:48px 0 2px 1200px;
+      width:230px;height:50px;
+      background:#0a0;
+      font-size:18px;
+      color:#fff;
+      border:1px solid #fff;
+      cursor: pointer;
+      /* display:none; */
+    }
+    .btn-agree:hover{
+      background:#f00;
+      color:#999;
+    }
+    .delcon{
+      width: 30%;
+      overflow: hidden;
+      background: #fff;
+      box-sizing: border-box;
+      border: 5px solid #009688;
+      position: fixed;
+      left: 33%;
+      top: 20%;
+      z-index: 999;
+      display: none;
+    }
+    .desure{
+      width: 100%;
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+      margin-top:45px;
+      margin-bottom: 30px;
+      color: red;
+      font-size: 20px;
+    }
+    .delfoot{
+      text-align: center;
+      width: 100%;
+      height: 35px;
+      margin-bottom: 20px;
+    }
+    .delcer{
+      float: left;
+      margin-left: 20%;
+      width: 80px;
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      background-color: #009688;
+      cursor: pointer;
+      border:0;
+      border-radius:3px;
+    }
+    .delcan{
+      float: left;
+      margin-left: 30%;
+      width: 80px;
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+      color: #fff;
+      font-size: 12px;
+      box-sizing: border-box;
+      background-color: #009688;
+      cursor: pointer;
+      border:0;
+      border-radius:3px;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="layui-layout layui-layout-admin">
+      <div class="header_con">
+        <div class="header">
+          <div class="welcome fl">欢迎来到听说科技</div>
+          <div class="fr">
+            <div class="login_btn fl">
+              {% if request.session.is_login %}
+              欢迎您：<span>{{ request.session.user_name }}</span>
+              {% ifequal request.session.user_identity 'student' %}
+              <span>|</span>
+              <a href="/write/">写作训练</a>
+              <span>|</span>
+              <a href="/package/">我的套餐</a>
+              <span>|</span>
+              <a href="/logout/">退出</a>
+              {% else %}
+              <span>|</span>
+              <a href="/correct/">作文批改</a>
+              <span>|</span>
+              <a href="/backlog/">我的任务</a>
+              <span>|</span>
+              <a href="/logout/">退出</a>
+              {% endifequal %}
+              {% else %}
+              <a href="/login/">登录</a>
+              <span>|</span>
+              <a href="/register/">注册</a>
+              {% endif %}
             </div>
-            <div class="layui-body layui-tab-content site-demo site-demo-body" style = "bottom:0">
-                <div class="layui-tab-item layui-show" style="margin:0 220px 0 0">
-                    <!-- 搜索框 -->
-                    <div style="display:flex;align-items: flex-end;justify-content: space-between;">
-                        <div>
-                            <form class="layui-form layui-form-pane" action="">  
-                                <!-- 标题 -->
-                                <div class="layui-form-item" style="width:400px;">
-                                    <label class="layui-form-label">标题</label>
-                                    <div class="layui-input-block" style="width:400px;">
-                                        <input type="text" name="grade" placeholder=" &nbsp请输入标题" id="test3" style="margin:0 0 0 10px;width:398px;height:35px;border:1px solid #d2d2d2;" autocomplete="off" >
-                                        <span style="display:inline-block;margin:5px 0 5px 12px;color:#f00;font-size:12px;">提示：多个标题之间用逗号隔开</span>
-                                    </div>
-                                </div>  
-                                <!-- 提交时间 -->
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">提交时间</label>
-                                    <div class="layui-input-block" >
-                                        <input placeholder=" &nbsp请选择日期"  name="time" id='test1' style="margin:0 0 0 10px;width:398px;height:35px;border:1px solid #d2d2d2;">
-                                        <!-- <input  name="time" id='test2' placeholder=" &nbsp请选择日期"  name="time" id='test1' style="margin:0 0 0 10px;width:154px;height:35px;border:1px solid #d2d2d2;"> -->
-                                    </div>
-                                </div>
-                                <!-- 年级 -->
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">年级</label>
-                                    <div class="layui-input-block " style="width:420px;">
-                                        <input type="checkbox" name="grade"  id="c_all" lay-filter="c_all" style="margin-right:10px;" checked
-                                            value=""
-                                            title="不&nbsp;&nbsp;&nbsp;限">
-                                        <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one" 
-                                            value="七年级"
-                                            title="七年级" >
-                                        <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one"
-                                            value="八年级"
-                                            title="八年级">
-                                        <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one"
-                                            value="九年级"
-                                            title="九年级">
-                                    </div>
-                                </div>  
-                                <!-- 地区 -->
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">地区</label>  
-                                    <div id="pros" class="layui-input-block" style="overflow: hidden;text-overflow:ellipsis;width:1320px;
-                                    ">
-                                        <input type="checkbox" name="region" id="c_all2" lay-filter="c_all2" checked class="ifRegion"
-                                            value=""
-                                            title="不&nbsp;&nbsp;&nbsp;限">
-                                    </div>
-                                </div>
-
-                                
-                            </form>
-                            <div class="demoTable" style="margin-bottom:10px;height:42px;">
-                                <button class="layui-btn" data-type="reload" style="margin:0 300px -20px 118px;width:120px;height:40px;">搜索</button>
-                                <button class="layui-btn reset-btn" style="margin:0 0px -20px -200px;width:120px;height:40px;">重置</button>
-                            </div>
-                        </div>                                         
-                    </div>
-                    <table class="layui-hide" id="LAY_table_user" lay-filter="demoEvent"></table>
-                    <div id="pageDown"></div>
-                </div>
-                <div class="middle_right layui-main">
-                    <div class="middle_content" style="position:relative;width: 88.5%; height:100%; margin-top: 20px;margin-left:-1%; border: 1px solid #9c9898;display:none;">
-                        <!-- <form class='form-login' action="/correct1/" method="post">
-                        <input style="display:none" id='hka' name='ac'>
-                        <button class="btn-agree" type="submit">
-                            确认批改
-                        </button>      
-                        </form> -->
-                        <button class="btn-agree">
-                            确认批改
-                        </button> 
-                        <p class="content" style="line-height: 40px;
-                        font-size: 15px; padding:20px">
-                            
-                        </p>
-
-                    </div> 
-                    <div class="layui-layer-btn layui-layer-btn-" >
-                    </div>       
-                </div>
+            <div class="user_link fl">
+              <span>|</span>
+              <a>用户中心</a>
+              <span>|</span>
+              <a>我的购物车</a>
+              <span>|</span>
+              <a href="/home/">主页</a>
             </div>
+          </div>
         </div>
-        <script src="../../static/layui/layui.js"></script>
-        <script src="../../static/layui/js/jquery-3.3.1.js"></script>
-        <script src="../../static/layui/lay/modules/jquery.js"></script>
-        <script src="../../static/layui/js/check_student.js"></script>
-    </body>
+      </div>
+      <div class="layui-body layui-tab-content site-demo site-demo-body" style = "bottom:0">
+        <div class="layui-tab-item layui-show" style="margin:0 220px 0 0">
+          <!-- 搜索框 -->
+          <div style="display:flex;align-items: flex-end;justify-content: space-between;">
+            <div>
+              <form class="layui-form layui-form-pane" action="">  
+                <!-- 标题 -->
+                <div class="layui-form-item" style="width:400px;">
+                  <label class="layui-form-label">标题</label>
+                  <div class="layui-input-block" style="width:400px;">
+                    <input type="text" name="grade" placeholder=" &nbsp请输入标题" id="test3" style="margin:0 0 0 10px;width:398px;height:35px;border:1px solid #d2d2d2;" autocomplete="off" >
+                    <span style="display:inline-block;margin:5px 0 5px 12px;color:#f00;font-size:12px;">提示：多个标题之间用逗号隔开</span>
+                  </div>
+                </div>  
+                <!-- 提交时间 -->
+                <div class="layui-form-item">
+                  <label class="layui-form-label">提交时间</label>
+                  <div class="layui-input-block" >
+                    <input placeholder=" &nbsp请选择日期"  name="time" id='test1' style="margin:0 0 0 10px;width:398px;height:35px;border:1px solid #d2d2d2;" autocomplete="off">
+                  </div>
+                </div>
+                <!-- 年级 -->
+                <div class="layui-form-item">
+                  <label class="layui-form-label">年级</label>
+                  <div class="layui-input-block " style="width:420px;">
+                    <input type="checkbox" name="grade"  id="c_all" lay-filter="c_all" style="margin-right:10px;" checked
+                            value=""
+                            title="不&nbsp;&nbsp;&nbsp;限">
+                    <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one" 
+                            value="七年级"
+                            title="七年级" >
+                    <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one"
+                            value="八年级"
+                            title="八年级">
+                    <input type="checkbox" name="grade" class="checkboxNum" lay-filter="c_one"
+                            value="九年级"
+                            title="九年级">
+                  </div>
+                </div>  
+                <!-- 地区 -->
+                <div class="layui-form-item">
+                  <label class="layui-form-label">地区</label>  
+                  <div id="pros" class="layui-input-block" style="overflow: hidden;text-overflow:ellipsis;width:1320px;
+                  ">
+                    <input type="checkbox" name="region" id="c_all2" lay-filter="c_all2" checked class="ifRegion"
+                          value=""
+                          title="不&nbsp;&nbsp;&nbsp;限">
+                  </div>
+                </div>  
+              </form>
+              <div class="demoTable" style="margin-bottom:10px;height:42px;">
+                <button class="layui-btn" data-type="reload" style="margin:0 300px -20px 118px;width:120px;height:40px;">搜索</button>
+                <button class="layui-btn reset-btn" style="margin:0 0px -20px -200px;width:120px;height:40px;">重置</button>
+              </div>
+            </div>                                         
+          </div>
+          <table class="layui-hide" id="LAY_table_user" lay-filter="demoEvent" style="overflow-y:auto;"></table>
+          <div id="pageDown"></div>
+        </div>
+        <div class="middle_right layui-main">
+          <div class="middle_content" style="position:relative;width: 88.5%; height:600px;overflow:auto; margin-top: 20px;margin-left:-1%; border: 1px solid #9c9898;display:none;">
+            <button class="btn-agree">
+                确认批改
+            </button> 
+            <p class="content" style="line-height: 40px;
+            font-size: 15px; padding:20px">                           
+            </p>
+          </div> 
+          <div class="layui-layer-btn layui-layer-btn-" ></div>       
+        </div>
+      </div>
+    </div>
+    <script src="../../static/layui/layui.js"></script>
+    <script src="../../static/layui/js/jquery-3.3.1.js"></script>
+    <script src="../../static/layui/lay/modules/jquery.js"></script>
+    <script src="../../static/layui/js/check_student.js"></script>
+  </body>
 </html> 
