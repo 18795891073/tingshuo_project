@@ -6,9 +6,12 @@ import Index from '../views/teacherLogin/index.vue'
 import User from '../views/teacherLogin/user.vue'
 import Reward from '../views/teacherLogin/myReward.vue'
 import ShoppingCar from '../views/teacherLogin/myShoppingCar.vue'
+import Correct from '../views/teacherLogin/correct.vue'
 
 // newProject
 import Calculator from '../views/newProject/calculator.vue'
+import Practice from '../views/newProject/practice.vue'
+
 
 Vue.use(Router)
 
@@ -18,7 +21,7 @@ export default new Router({
     {
       path: '/',
       name: 'login',
-      component: Calculator
+      component: Login
     },
     // 作文筛选页面
     {
@@ -56,12 +59,25 @@ export default new Router({
       name:'shoppingCar',
       component:ShoppingCar
     },
+    // 作文批改页面
+    {
+      path:'/correct',
+      name:'correct',
+      component:Correct
+    },
     // newProject路由
+    // 计算器页面
     {
       path: '/calculator',
       name: 'calculator',
       component: Calculator
-    }
+    },
+    // practice页面
+    {
+      path: '/practice',
+      name: 'practice',
+      component: Practice
+    },
     
   ]
 })
