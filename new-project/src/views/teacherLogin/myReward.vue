@@ -18,7 +18,15 @@
         <div>|</div>
         <el-menu-item index="7"><a href="http://localhost:8080/#/index">主页</a></el-menu-item>
       </el-menu>
-      <div>这个是报酬页面</div>
+      <div style="width:70%;height:820px;margin-left:15%;border:1px solid #999;text-align:center;font-size:20px;color:#009688;padding:20px;">这个是报酬页面
+          <div style="width:80%;height:80%;border:1px solid #f00;margin-left:10%;">
+              <div style="margin:30px 0 0 230px;width:600px;height:50px;border:1px solid #0ff;" v-for="(item,index) in countryList" :key="index">
+                  <i class="el-icon-view"></i>
+                  <span>{{countryList[index]}}</span>
+                  <input type="text" style="width:350px;height:40px;margin-top:2px;">
+              </div>
+          </div>
+      </div>
     </div>
   </div>
 </template>
@@ -27,6 +35,7 @@ export default {
   data(){
     return{
       activeIndex:"3",
+      countryList:['中国','美国','英国','法国','俄罗斯']
     }
   },
   mounted(){},

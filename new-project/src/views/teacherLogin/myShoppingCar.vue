@@ -161,6 +161,8 @@ export default {
     handleEdit(index,row){
       console.log(111,index)  
       console.log(222,row)
+      alert(row.remarks)
+      alert(row.productName)
     },
     handleDelete(index,row){
       this.tableData.splice(index, 1);

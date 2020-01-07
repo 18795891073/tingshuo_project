@@ -7,6 +7,7 @@ import User from '../views/teacherLogin/user.vue'
 import Reward from '../views/teacherLogin/myReward.vue'
 import ShoppingCar from '../views/teacherLogin/myShoppingCar.vue'
 import Correct from '../views/teacherLogin/correct.vue'
+import Register from '../views/teacherLogin/register.vue'
 
 // newProject
 import Calculator from '../views/newProject/calculator.vue'
@@ -34,6 +35,12 @@ export default new Router({
       path:'/login',
       name:'login',
       component:Login
+    },
+    // 注册页面
+    {
+        path:'/register',
+        name:'register',
+        component:Register
     },
     // 主页
     {

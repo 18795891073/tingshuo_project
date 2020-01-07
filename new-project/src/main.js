@@ -10,11 +10,13 @@ import $ from 'jquery'
 import VDistpicker from 'v-distpicker'
 // 图片验证码
 import SIdentify from './components/identify'
+// 引入echarts
+import echarts from 'echarts'
 
-
-Vue.use(ElementUI)
-Vue.config.productionTip = false
-Vue.component("SIdentify",SIdentify)
+Vue.prototype.$echarts = echarts;
+Vue.use(ElementUI);
+Vue.config.productionTip = false;
+Vue.component("SIdentify",SIdentify);
 
 
 // axios.defaults.baseURL = '/pre'
