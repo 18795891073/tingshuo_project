@@ -8,9 +8,7 @@ import Vue from 'vue'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 const service = axios.create({
-  //baseURL: process.env.API_BASE_URL, // url = base url + request url
-  // withCredentials: true, // send cookies when cross-domain requests
-  baseURL:'http://192.168.1.150:9000/web3',
+  baseURL:'http://192.168.1.150:8999',
   timeout: 15000 ,// 请求超时,
 })
 
